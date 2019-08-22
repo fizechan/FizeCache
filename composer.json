@@ -1,0 +1,21 @@
+{
+    "name": "fize/cache",
+    "description": "An easy to extend cache class library. produced by FizeChan.",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "FizeChan",
+            "email": "chenfengzhan@qq.com"
+        }
+    ],
+    "require": {
+		"php": ">=7.0.0",
+		"fize/io": "*@dev",
+		"fize/crypt": "*@dev"
+	},
+	"autoload": {
+        "psr-4": {
+            "fize\\cache\\": "src"
+        }
+    }
+}
