@@ -1,0 +1,107 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "1652b793a37753d3b28d0acc1be2e9cb",
+    "packages": [
+        {
+            "name": "fize/crypt",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cfz87862529/FizeCrypt.git",
+                "reference": "1203ac07d6609bd25cf79ee3c6ae027d6245a44f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cfz87862529/FizeCrypt/zipball/1203ac07d6609bd25cf79ee3c6ae027d6245a44f",
+                "reference": "1203ac07d6609bd25cf79ee3c6ae027d6245a44f",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "fize\\crypt\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "FizeChan",
+                    "email": "chenfengzhan@qq.com"
+                }
+            ],
+            "description": "various encoding and decoding class libraries. produced by FizeChan.",
+            "time": "2019-08-22T07:49:31+00:00"
+        },
+        {
+            "name": "fize/io",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cfz87862529/FizeIO.git",
+                "reference": "27eed8480ed5db58985d5a79bc72a85c041c9620"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cfz87862529/FizeIO/zipball/27eed8480ed5db58985d5a79bc72a85c041c9620",
+                "reference": "27eed8480ed5db58985d5a79bc72a85c041c9620",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "fize\\io\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "FizeChan",
+                    "email": "chenfengzhan@qq.com"
+                }
+            ],
+            "description": "common input/output libraries, produced by FizeChan.",
+            "time": "2019-08-22T07:45:59+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "fize/io": 20,
+        "fize/crypt": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.0.0"
+    },
+    "platform-dev": []
+}
