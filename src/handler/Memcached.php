@@ -10,6 +10,7 @@ use Exception;
 /**
  * Memcached形式缓存类
  * 仅适用于linux，需要Memcached扩展
+ * @package fize\cache\handler
  */
 class Memcached implements CacheHandler
 {
@@ -39,8 +40,8 @@ class Memcached implements CacheHandler
         $this->_options = array_merge($this->_options, $options);
         $this->driver = new Driver();
         $result = $this->driver->addServers($this->_options['servers']);
-        if(!$result){
-            throw new Exception($this->driver->getResultMessage(),  $this->driver->getResultCode());
+        if (!$result) {
+            throw new Exception($this->driver->getResultMessage(), $this->driver->getResultCode());
         }
     }
 
@@ -51,8 +52,8 @@ class Memcached implements CacheHandler
     public function __destruct()
     {
         $result = $this->driver->quit();
-        if(!$result){
-            throw new Exception($this->driver->getResultMessage(),  $this->driver->getResultCode());
+        if (!$result) {
+            throw new Exception($this->driver->getResultMessage(), $this->driver->getResultCode());
         }
     }
 
@@ -87,10 +88,10 @@ class Memcached implements CacheHandler
      */
     public function set($name, $value, $expire = null)
     {
-        if(is_null($expire)){
+        if (is_null($expire)) {
             $expire = $this->_options['expire'];
         }
-        if($expire > 0){
+        if ($expire > 0) {
             $expire = time() + $expire;
         }
         $result = $this->driver->set($name, $value, $expire);
@@ -119,8 +120,8 @@ class Memcached implements CacheHandler
     public function clear()
     {
         $result = $this->driver->flush();
-        if(!$result){
-            throw new Exception($this->driver->getResultMessage(),  $this->driver->getResultCode());
+        if (!$result) {
+            throw new Exception($this->driver->getResultMessage(), $this->driver->getResultCode());
         }
     }
 }

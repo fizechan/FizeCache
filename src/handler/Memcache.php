@@ -13,6 +13,7 @@ use Exception;
  * Memcache形式缓存类
  * 适用于PHP5.6及以下版本，需要Memcache扩展
  * @deprecated 官方已停止维护，不建议使用
+ * @package fize\cache\handler
  */
 class Memcache implements CacheHandler
 {
@@ -44,13 +45,13 @@ class Memcache implements CacheHandler
         $this->_options = array_merge($this->_options, $options);
         //memcache_debug($this->_options['debug']);
         $this->driver = new Driver();
-        if($this->_options['pconnect']){
+        if ($this->_options['pconnect']) {
             $result = $this->driver->pconnect($this->_options['host'], $this->_options['port'], $this->_options['timeout']);
-        }else{
+        } else {
             $result = $this->driver->connect($this->_options['host'], $this->_options['port'], $this->_options['timeout']);
         }
-        if(!$result){
-            throw new Exception('Error connecting to Memcached server',  -1);
+        if (!$result) {
+            throw new Exception('Error connecting to Memcached server', -1);
         }
     }
 
@@ -93,10 +94,10 @@ class Memcache implements CacheHandler
      */
     public function set($name, $value, $expire = null)
     {
-        if(is_null($expire)){
+        if (is_null($expire)) {
             $expire = $this->_options['expire'];
         }
-        if($expire > 0){
+        if ($expire > 0) {
             $expire = time() + $expire;
         }
         $result = $this->driver->set($name, $value, false, $expire);
@@ -125,8 +126,8 @@ class Memcache implements CacheHandler
     public function clear()
     {
         $result = $this->driver->flush();
-        if(!$result){
-            throw new Exception('An error occurred when Memcache deleted all stored elements',  -1);
+        if (!$result) {
+            throw new Exception('An error occurred when Memcache deleted all stored elements', -1);
         }
     }
 }

@@ -10,6 +10,7 @@ use Exception;
 
 /**
  * Redis形式缓存类
+ * @package fize\cache\handler
  */
 class Redis implements CacheHandler
 {
@@ -39,18 +40,18 @@ class Redis implements CacheHandler
         $this->_options = array_merge($this->_options, $options);
         $this->driver = new Driver();
         $result = $this->driver->connect($this->_options['host'], $this->_options['port'], $this->_options['timeout']);
-        if(!$result){
+        if (!$result) {
             throw new Exception($this->driver->getLastError());
         }
-        if(isset($this->_options['password'])) {
+        if (isset($this->_options['password'])) {
             $result = $this->driver->auth($this->_options['password']);
-            if(!$result){
+            if (!$result) {
                 throw new Exception($this->driver->getLastError());
             }
         }
-        if(isset($this->_options['dbindex'])) {
+        if (isset($this->_options['dbindex'])) {
             $result = $this->driver->select($this->_options['dbindex']);
-            if(!$result){
+            if (!$result) {
                 throw new Exception($this->driver->getLastError());
             }
         }
@@ -95,7 +96,7 @@ class Redis implements CacheHandler
      */
     public function set($name, $value, $expire = null)
     {
-        if(is_null($expire)){
+        if (is_null($expire)) {
             $expire = $this->_options['expire'];
         }
         if ($expire) {
@@ -128,7 +129,7 @@ class Redis implements CacheHandler
     public function clear()
     {
         $result = $this->driver->flushAll();
-        if(!$result){
+        if (!$result) {
             throw new Exception($this->driver->getLastError());
         }
     }
