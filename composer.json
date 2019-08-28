@@ -9,10 +9,13 @@
         }
     ],
     "require": {
-		"php": ">=7.0.0",
-		"fize/io": "*@dev",
-		"fize/crypt": "*@dev"
-	},
+		"php": ">=5.4.0",
+        "ext-memcache": "*",
+        "ext-memcached": "*",
+        "ext-redis": "*",
+        "fize/io": "*@dev",
+        "fize/crypt": "*@dev"
+    },
 	"autoload": {
         "psr-4": {
             "fize\\cache\\": "src"
