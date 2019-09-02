@@ -26,7 +26,7 @@ class Memcache implements CacheHandler
     /**
      * @var array 当前使用的配置
      */
-    private $_options = [
+    private $options = [
         'host'     => 'localhost',
         'port'     => 11211,
         'timeout'  => 1,
@@ -42,13 +42,13 @@ class Memcache implements CacheHandler
      */
     public function __construct(array $options = [])
     {
-        $this->_options = array_merge($this->_options, $options);
+        $this->options = array_merge($this->options, $options);
         //memcache_debug($this->_options['debug']);
         $this->driver = new Driver();
-        if ($this->_options['pconnect']) {
-            $result = $this->driver->pconnect($this->_options['host'], $this->_options['port'], $this->_options['timeout']);
+        if ($this->options['pconnect']) {
+            $result = $this->driver->pconnect($this->options['host'], $this->options['port'], $this->options['timeout']);
         } else {
-            $result = $this->driver->connect($this->_options['host'], $this->_options['port'], $this->_options['timeout']);
+            $result = $this->driver->connect($this->options['host'], $this->options['port'], $this->options['timeout']);
         }
         if (!$result) {
             throw new Exception('Error connecting to Memcached server', -1);
@@ -95,7 +95,7 @@ class Memcache implements CacheHandler
     public function set($name, $value, $expire = null)
     {
         if (is_null($expire)) {
-            $expire = $this->_options['expire'];
+            $expire = $this->options['expire'];
         }
         if ($expire > 0) {
             $expire = time() + $expire;

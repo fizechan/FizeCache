@@ -22,7 +22,7 @@ class Memcached implements CacheHandler
     /**
      * @var array 当前使用的配置
      */
-    private $_options = [
+    private $options = [
         'servers' => [
             ['localhost', 11211, 100]
         ],
@@ -37,9 +37,9 @@ class Memcached implements CacheHandler
      */
     public function __construct(array $options = [])
     {
-        $this->_options = array_merge($this->_options, $options);
+        $this->options = array_merge($this->options, $options);
         $this->driver = new Driver();
-        $result = $this->driver->addServers($this->_options['servers']);
+        $result = $this->driver->addServers($this->options['servers']);
         if (!$result) {
             throw new Exception($this->driver->getResultMessage(), $this->driver->getResultCode());
         }
@@ -89,7 +89,7 @@ class Memcached implements CacheHandler
     public function set($name, $value, $expire = null)
     {
         if (is_null($expire)) {
-            $expire = $this->_options['expire'];
+            $expire = $this->options['expire'];
         }
         if ($expire > 0) {
             $expire = time() + $expire;

@@ -23,7 +23,7 @@ class Redis implements CacheHandler
     /**
      * @var array 当前使用的配置
      */
-    private $_options = [
+    private $options = [
         'host'    => '127.0.0.1',
         'port'    => 6379,
         'timeout' => 0,
@@ -37,20 +37,20 @@ class Redis implements CacheHandler
      */
     public function __construct(array $options = [])
     {
-        $this->_options = array_merge($this->_options, $options);
+        $this->options = array_merge($this->options, $options);
         $this->driver = new Driver();
-        $result = $this->driver->connect($this->_options['host'], $this->_options['port'], $this->_options['timeout']);
+        $result = $this->driver->connect($this->options['host'], $this->options['port'], $this->options['timeout']);
         if (!$result) {
             throw new Exception($this->driver->getLastError());
         }
-        if (isset($this->_options['password'])) {
-            $result = $this->driver->auth($this->_options['password']);
+        if (isset($this->options['password'])) {
+            $result = $this->driver->auth($this->options['password']);
             if (!$result) {
                 throw new Exception($this->driver->getLastError());
             }
         }
-        if (isset($this->_options['dbindex'])) {
-            $result = $this->driver->select($this->_options['dbindex']);
+        if (isset($this->options['dbindex'])) {
+            $result = $this->driver->select($this->options['dbindex']);
             if (!$result) {
                 throw new Exception($this->driver->getLastError());
             }
@@ -97,7 +97,7 @@ class Redis implements CacheHandler
     public function set($name, $value, $expire = null)
     {
         if (is_null($expire)) {
-            $expire = $this->_options['expire'];
+            $expire = $this->options['expire'];
         }
         if ($expire) {
             $result = $this->driver->set($name, $value, ['ex' => $expire]);
@@ -128,7 +128,7 @@ class Redis implements CacheHandler
      */
     public function clear()
     {
-        $result = $this->driver->flushAll();
+        $result = $this->driver->flushDB();
         if (!$result) {
             throw new Exception($this->driver->getLastError());
         }

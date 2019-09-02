@@ -20,7 +20,7 @@ class File implements CacheHandler
     /**
      * @var array 当前使用的配置
      */
-    private $_options = [
+    private $options = [
         'path'   => './data/cache',
         'expire' => 0
     ];
@@ -31,7 +31,7 @@ class File implements CacheHandler
      */
     public function __construct(array $options = [])
     {
-        $this->_options = array_merge($this->_options, $options);
+        $this->options = array_merge($this->options, $options);
     }
 
     /**
@@ -43,7 +43,7 @@ class File implements CacheHandler
      */
     public function get($name, $default = null)
     {
-        $file = $this->_options['path'] . "/" . Base64::encode($name) . ".cache";
+        $file = $this->options['path'] . "/" . Base64::encode($name) . ".cache";
         if (!Driver::exists($file)) {
             //缓存尚未创建
             return $default;
@@ -66,7 +66,7 @@ class File implements CacheHandler
      */
     public function has($name)
     {
-        $file = $this->_options['path'] . "/" . Base64::encode($name) . ".cache";
+        $file = $this->options['path'] . "/" . Base64::encode($name) . ".cache";
         if (!Driver::exists($file)) {
             return false;
         }
@@ -92,9 +92,9 @@ class File implements CacheHandler
      */
     public function set($name, $value, $expire = null)
     {
-        $file = $this->_options['path'] . "/" . Base64::encode($name) . ".cache";
+        $file = $this->options['path'] . "/" . Base64::encode($name) . ".cache";
         if (is_null($expire)) {
-            $expire = $this->_options['expire'];
+            $expire = $this->options['expire'];
         }
         if ($expire > 0) {
             $expire = time() + $expire;
@@ -120,7 +120,7 @@ class File implements CacheHandler
      */
     public function remove($name)
     {
-        $file = $this->_options['path'] . "/" . Base64::encode($name) . ".cache";
+        $file = $this->options['path'] . "/" . Base64::encode($name) . ".cache";
         $fso = new Driver($file);
         $rst = $fso->delete();
         if ($rst === false) {
@@ -133,7 +133,7 @@ class File implements CacheHandler
      */
     public function clear()
     {
-        $dir = new Directory($this->_options['path'], true);
+        $dir = new Directory($this->options['path'], true);
         $dir->clear();
     }
 }
