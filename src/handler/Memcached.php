@@ -1,4 +1,5 @@
-<?php /** @noinspection PhpComposerExtensionStubsInspection */
+<?php
+/** @noinspection PhpComposerExtensionStubsInspection */
 
 namespace fize\cache\handler;
 
