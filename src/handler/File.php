@@ -44,8 +44,7 @@ class File implements CacheHandler
     public function get($name, $default = null)
     {
         $file = $this->options['path'] . "/" . Base64::encode($name) . ".cache";
-        if (!Driver::exists($file)) {
-            //缓存尚未创建
+        if (!Driver::exists($file)) {  //缓存尚未创建
             return $default;
         }
         $fso = new Driver($file);
@@ -121,6 +120,9 @@ class File implements CacheHandler
     public function remove($name)
     {
         $file = $this->options['path'] . "/" . Base64::encode($name) . ".cache";
+        if (!Driver::exists($file)) {
+            return;
+        }
         $fso = new Driver($file);
         $rst = $fso->delete();
         if ($rst === false) {
