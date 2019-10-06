@@ -1,6 +1,6 @@
 {
     "name": "fize/cache",
-    "description": "An easy to extend cache class library. produced by FizeChan.",
+    "description": "An easy to extend cache class library.",
     "license": "Apache-2.0",
     "authors": [
         {
