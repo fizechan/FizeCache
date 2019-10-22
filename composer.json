@@ -1,6 +1,6 @@
 {
     "name": "fize/cache",
-    "description": "An easy to extend cache class library.",
+    "description": "一个易于扩展的缓存类库.",
     "license": "Apache-2.0",
     "authors": [
         {
@@ -10,8 +10,8 @@
     ],
     "require": {
 		"php": ">=5.4.0",
-        "fize/io": "~3.1",
-        "fize/crypt": "~3.0"
+        "fize/io": "~3.2",
+        "fize/crypt": "~3.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0.0"
