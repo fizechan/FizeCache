@@ -1,5 +1,4 @@
 <?php
-/** @noinspection PhpComposerExtensionStubsInspection */
 
 
 namespace fize\cache\handler;
@@ -27,29 +26,30 @@ class Memcache implements CacheHandler
     /**
      * @var array 当前使用的配置
      */
-    private $options = [
-        'host'     => 'localhost',
-        'port'     => 11211,
-        'timeout'  => 1,
-        'pconnect' => false,
-        'debug'    => false,
-        'expire'   => 0
-    ];
+    private $config;
 
     /**
      * 构造函数
-     * @param array $options 初始化默认选项
+     * @param array $config 初始化默认选项
      * @throws Exception
      */
-    public function __construct(array $options = [])
+    public function __construct(array $config = [])
     {
-        $this->options = array_merge($this->options, $options);
+        $default_config = [
+            'host'     => 'localhost',
+            'port'     => 11211,
+            'timeout'  => 1,
+            'pconnect' => false,
+            'debug'    => false,
+            'expire'   => 0
+        ];
+        $this->config = array_merge($default_config, $config);
         //memcache_debug($this->_options['debug']);
         $this->driver = new Driver();
-        if ($this->options['pconnect']) {
-            $result = $this->driver->pconnect($this->options['host'], $this->options['port'], $this->options['timeout']);
+        if ($this->config['pconnect']) {
+            $result = $this->driver->pconnect($this->config['host'], $this->config['port'], $this->config['timeout']);
         } else {
-            $result = $this->driver->connect($this->options['host'], $this->options['port'], $this->options['timeout']);
+            $result = $this->driver->connect($this->config['host'], $this->config['port'], $this->config['timeout']);
         }
         if (!$result) {
             throw new Exception('Error connecting to Memcached server', -1);
@@ -96,7 +96,7 @@ class Memcache implements CacheHandler
     public function set($name, $value, $expire = null)
     {
         if (is_null($expire)) {
-            $expire = $this->options['expire'];
+            $expire = $this->config['expire'];
         }
         if ($expire > 0) {
             $expire = time() + $expire;

@@ -20,18 +20,19 @@ class File implements CacheHandler
     /**
      * @var array 当前使用的配置
      */
-    private $options = [
-        'path'   => './data/cache',
-        'expire' => 0
-    ];
+    private $config;
 
     /**
      * 构造函数
-     * @param array $options 初始化默认选项
+     * @param array $config 初始化默认选项
      */
-    public function __construct(array $options = [])
+    public function __construct(array $config = [])
     {
-        $this->options = array_merge($this->options, $options);
+        $default_config = [
+            'path'   => './data/cache',
+            'expire' => 0
+        ];
+        $this->config = array_merge($default_config, $config);
     }
 
     /**
@@ -43,7 +44,7 @@ class File implements CacheHandler
      */
     public function get($name, $default = null)
     {
-        $file = $this->options['path'] . "/" . Base64::encode($name) . ".cache";
+        $file = $this->config['path'] . "/" . Base64::encode($name) . ".cache";
         if (!Driver::exists($file)) {  //缓存尚未创建
             return $default;
         }
@@ -65,7 +66,7 @@ class File implements CacheHandler
      */
     public function has($name)
     {
-        $file = $this->options['path'] . "/" . Base64::encode($name) . ".cache";
+        $file = $this->config['path'] . "/" . Base64::encode($name) . ".cache";
         if (!Driver::exists($file)) {
             return false;
         }
@@ -91,9 +92,9 @@ class File implements CacheHandler
      */
     public function set($name, $value, $expire = null)
     {
-        $file = $this->options['path'] . "/" . Base64::encode($name) . ".cache";
+        $file = $this->config['path'] . "/" . Base64::encode($name) . ".cache";
         if (is_null($expire)) {
-            $expire = $this->options['expire'];
+            $expire = $this->config['expire'];
         }
         if ($expire > 0) {
             $expire = time() + $expire;
@@ -119,7 +120,7 @@ class File implements CacheHandler
      */
     public function remove($name)
     {
-        $file = $this->options['path'] . "/" . Base64::encode($name) . ".cache";
+        $file = $this->config['path'] . "/" . Base64::encode($name) . ".cache";
         if (!Driver::exists($file)) {
             return;
         }
@@ -135,7 +136,7 @@ class File implements CacheHandler
      */
     public function clear()
     {
-        $dir = new Directory($this->options['path'], true);
+        $dir = new Directory($this->config['path'], true);
         $dir->clear();
     }
 }

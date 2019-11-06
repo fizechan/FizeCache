@@ -9,12 +9,24 @@
         }
     ],
     "require": {
-		"php": ">=5.4.0",
-        "fize/io": "~3.2",
-        "fize/crypt": "~3.2"
+		"php": ">=5.4.0"
     },
     "require-dev": {
+        "ext-memcache": "*",
+        "ext-memcached": "*",
+        "ext-redis": "*",
+        "fize/db": "~2.3",
+        "fize/crypt": "~3.2",
+        "fize/io": "~3.2",
         "phpunit/phpunit": "^8.0.0"
+    },
+    "suggest": {
+        "ext-memcache": "*",
+        "ext-memcached": "*",
+        "ext-redis": "*",
+        "fize/db": "~2.3",
+        "fize/crypt": "~3.2",
+        "fize/io": "~3.2"
     },
 	"autoload": {
         "psr-4": {

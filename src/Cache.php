@@ -16,13 +16,13 @@ class Cache
     /**
      * 取得单例
      * @param string $driver 使用的实际接口名称
-     * @param array $options 配置项
+     * @param array $config 配置项
      * @return CacheHandler
      */
-    public static function getInstance($driver, array $options = [])
+    public static function getInstance($driver, array $config = [])
     {
         if (empty(self::$handler)) {
-            self::$handler = self::getNew($driver, $options);
+            self::$handler = self::getNew($driver, $config);
         }
         return self::$handler;
     }
@@ -30,12 +30,12 @@ class Cache
     /**
      * 新建实例
      * @param string $driver 使用的实际接口名称
-     * @param array $options 配置项
+     * @param array $config 配置项
      * @return CacheHandler
      */
-    public static function getNew($driver, array $options = [])
+    public static function getNew($driver, array $config = [])
     {
         $class = '\\' . __NAMESPACE__ . '\\handler\\' . $driver;
-        return new $class($options);
+        return new $class($config);
     }
 }

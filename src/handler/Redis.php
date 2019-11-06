@@ -1,5 +1,4 @@
 <?php
-/** @noinspection PhpComposerExtensionStubsInspection */
 
 
 namespace fize\cache\handler;
@@ -24,34 +23,35 @@ class Redis implements CacheHandler
     /**
      * @var array 当前使用的配置
      */
-    private $options = [
-        'host'    => '127.0.0.1',
-        'port'    => 6379,
-        'timeout' => 0,
-        'expire'  => 0
-    ];
+    private $config;
 
     /**
      * 构造函数
-     * @param array $options 初始化默认选项
+     * @param array $config 初始化默认选项
      * @throws Exception
      */
-    public function __construct(array $options = [])
+    public function __construct(array $config = [])
     {
-        $this->options = array_merge($this->options, $options);
+        $default_config = [
+            'host'    => '127.0.0.1',
+            'port'    => 6379,
+            'timeout' => 0,
+            'expire'  => 0
+        ];
+        $this->config = array_merge($default_config, $config);
         $this->driver = new Driver();
-        $result = $this->driver->connect($this->options['host'], $this->options['port'], $this->options['timeout']);
+        $result = $this->driver->connect($this->config['host'], $this->config['port'], $this->config['timeout']);
         if (!$result) {
             throw new Exception($this->driver->getLastError());
         }
-        if (isset($this->options['password'])) {
-            $result = $this->driver->auth($this->options['password']);
+        if (isset($this->config['password'])) {
+            $result = $this->driver->auth($this->config['password']);
             if (!$result) {
                 throw new Exception($this->driver->getLastError());
             }
         }
-        if (isset($this->options['dbindex'])) {
-            $result = $this->driver->select($this->options['dbindex']);
+        if (isset($this->config['dbindex'])) {
+            $result = $this->driver->select($this->config['dbindex']);
             if (!$result) {
                 throw new Exception($this->driver->getLastError());
             }
@@ -98,7 +98,7 @@ class Redis implements CacheHandler
     public function set($name, $value, $expire = null)
     {
         if (is_null($expire)) {
-            $expire = $this->options['expire'];
+            $expire = $this->config['expire'];
         }
         if ($expire) {
             $result = $this->driver->set($name, $value, ['ex' => $expire]);

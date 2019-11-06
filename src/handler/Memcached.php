@@ -1,5 +1,4 @@
 <?php
-/** @noinspection PhpComposerExtensionStubsInspection */
 
 namespace fize\cache\handler;
 
@@ -23,24 +22,25 @@ class Memcached implements CacheHandler
     /**
      * @var array 当前使用的配置
      */
-    private $options = [
-        'servers' => [
-            ['localhost', 11211, 100]
-        ],
-        'timeout' => 1,
-        'expire'  => 0
-    ];
+    private $config;
 
     /**
      * 构造函数
-     * @param array $options 初始化默认选项
+     * @param array $config 初始化默认选项
      * @throws Exception
      */
-    public function __construct(array $options = [])
+    public function __construct(array $config = [])
     {
-        $this->options = array_merge($this->options, $options);
+        $default_config = [
+            'servers' => [
+                ['localhost', 11211, 100]
+            ],
+            'timeout' => 1,
+            'expire'  => 0
+        ];
+        $this->config = array_merge($default_config, $config);
         $this->driver = new Driver();
-        $result = $this->driver->addServers($this->options['servers']);
+        $result = $this->driver->addServers($this->config['servers']);
         if (!$result) {
             throw new Exception($this->driver->getResultMessage(), $this->driver->getResultCode());
         }
@@ -90,7 +90,7 @@ class Memcached implements CacheHandler
     public function set($name, $value, $expire = null)
     {
         if (is_null($expire)) {
-            $expire = $this->options['expire'];
+            $expire = $this->config['expire'];
         }
         if ($expire > 0) {
             $expire = time() + $expire;

@@ -12,9 +12,9 @@ interface CacheHandler
 
     /**
      * 构造函数
-     * @param array $options 初始化默认选项
+     * @param array $config 初始化默认选项
      */
-    public function __construct(array $options = []);
+    public function __construct(array $config = []);
 
     /**
      * 获取一个缓存
