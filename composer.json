@@ -12,10 +12,7 @@
 		"php": ">=5.4.0"
     },
     "require-dev": {
-        "ext-memcache": "*",
-        "ext-memcached": "*",
-        "ext-redis": "*",
-        "fize/db": "~2.3",
+        "fize/db": "~2.4",
         "fize/crypt": "~3.2",
         "fize/io": "~3.2",
         "phpunit/phpunit": "^8.0.0"
@@ -24,7 +21,7 @@
         "ext-memcache": "*",
         "ext-memcached": "*",
         "ext-redis": "*",
-        "fize/db": "~2.3",
+        "fize/db": "~2.4",
         "fize/crypt": "~3.2",
         "fize/io": "~3.2"
     },

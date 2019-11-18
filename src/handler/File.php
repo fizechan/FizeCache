@@ -12,7 +12,6 @@ use Exception;
 
 /**
  * 文件形式缓存类
- * @package fize\cache\handler
  */
 class File implements CacheHandler
 {

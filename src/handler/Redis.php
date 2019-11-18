@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpComposerExtensionStubsInspection */
 
 
 namespace fize\cache\handler;
@@ -10,7 +11,6 @@ use Exception;
 
 /**
  * Redis形式缓存类
- * @package fize\cache\handler
  */
 class Redis implements CacheHandler
 {

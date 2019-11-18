@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpComposerExtensionStubsInspection */
 
 namespace fize\cache\handler;
 
@@ -10,7 +11,6 @@ use Exception;
 /**
  * Memcached形式缓存类
  * 仅适用于linux，需要Memcached扩展
- * @package fize\cache\handler
  */
 class Memcached implements CacheHandler
 {

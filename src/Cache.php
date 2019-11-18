@@ -4,7 +4,6 @@ namespace fize\cache;
 
 /**
  * 缓存类
- * @package fize\cache
  */
 class Cache
 {

@@ -9,7 +9,6 @@ use fize\db\definition\Db as Driver;
 
 /**
  * 数据库形式缓存类
- * @package fize\cache\handler
  */
 class Database implements CacheHandler
 {

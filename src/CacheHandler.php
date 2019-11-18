@@ -5,7 +5,6 @@ namespace fize\cache;
 
 /**
  * 缓存处理接口
- * @package fize\cache
  */
 interface CacheHandler
 {
