@@ -44,7 +44,7 @@ class File implements CacheHandler
     public function get($name, $default = null)
     {
         $file = $this->config['path'] . "/" . Base64::encode($name) . ".cache";
-        if (!Driver::exists($file)) {  //缓存尚未创建
+        if (!Driver::exists($file)) {
             return $default;
         }
         $fso = new Driver($file);
@@ -52,7 +52,7 @@ class File implements CacheHandler
         if (!$data) {
             throw new Exception("An error occurred while fetching the cache [{$name}]");
         }
-        if ($data['expire'] != 0 && $data['expire'] < time()) {  //缓存超时
+        if ($data['expire'] != 0 && $data['expire'] < time()) {
             return $default;
         }
         return $data['data'];
@@ -75,7 +75,7 @@ class File implements CacheHandler
             throw new Exception("An error occurred while fetching the cache [{$name}]");
         }
 
-        if ($data['expire'] != 0 && $data['expire'] < time()) {  //缓存超时
+        if ($data['expire'] != 0 && $data['expire'] < time()) {
             return false;
         }
 
@@ -84,9 +84,12 @@ class File implements CacheHandler
 
     /**
      * 设置一个缓存
+     *
+     * 参数 `$expire` :
+     *   不设置则使用当前配置
      * @param string $name 缓存名
      * @param mixed $value 缓存值
-     * @param int $expire 有效时间，以秒为单位,0表示永久有效,不设置则使用当前配置
+     * @param int $expire 有效时间，以秒为单位,0表示永久有效。
      * @throws Exception
      */
     public function set($name, $value, $expire = null)
@@ -99,7 +102,6 @@ class File implements CacheHandler
             $expire = time() + $expire;
         }
 
-        //设置缓存
         $data = [
             'data'   => $value,
             'expire' => $expire

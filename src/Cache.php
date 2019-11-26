@@ -14,11 +14,12 @@ class Cache
 
     /**
      * 常规调用请请初始化
+     * @param string $handler 使用的实际接口名称
      * @param array $config 配置项
      */
-    public function __construct(array $config)
+    public function __construct($handler, array $config = [])
     {
-        self::getInstance($config['handler'], $config['config']);
+        self::$handler = self::getInstance($handler, $config);
     }
 
     /**
@@ -71,28 +72,14 @@ class Cache
     }
 
     /**
-     * 取得单例
-     * @param string $driver 使用的实际接口名称
+     * 取得实例
+     * @param string $handler 使用的实际接口名称
      * @param array $config 配置项
      * @return CacheHandler
      */
-    public static function getInstance($driver, array $config = [])
+    public static function getInstance($handler, array $config = [])
     {
-        if (empty(self::$handler)) {
-            self::$handler = self::getNew($driver, $config);
-        }
-        return self::$handler;
-    }
-
-    /**
-     * 新建实例
-     * @param string $driver 使用的实际接口名称
-     * @param array $config 配置项
-     * @return CacheHandler
-     */
-    public static function getNew($driver, array $config = [])
-    {
-        $class = '\\' . __NAMESPACE__ . '\\handler\\' . $driver;
+        $class = '\\' . __NAMESPACE__ . '\\handler\\' . $handler;
         return new $class($config);
     }
 }

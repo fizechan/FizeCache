@@ -7,79 +7,99 @@ use PHPUnit\Framework\TestCase;
 class CacheTest extends TestCase
 {
 
-    public function testSet()
+    public function test__construct()
     {
-        $options = [
-            'host'    => '192.168.56.102',
+        $config = [
+            'host'    => '192.168.56.101',
             'port'    => 6379,
-            'timeout' => 0,
+            'timeout' => 10,
             'expire'  => 0,
             'dbindex' => 15
         ];
-        $cache = Cache::getInstance('Redis', $options);
-
-        $rst1 = $cache->set('cfz', '我想在里面填什么都可以', 100);
-        var_dump($rst1);
-        $cache1 = $cache->get('cfz');
-        var_dump($cache1);
-
-        $rst2 = $cache->set('cfz2', '我想在里面填什么都可以2');
-        var_dump($rst2);
-        $cache2 = $cache->get('cfz2');
-        var_dump($cache2);
+        new Cache('Redis', $config);
+        self::assertTrue(true);
     }
 
+    /**
+     * @depends test__construct
+     */
     public function testGet()
     {
-        $cache = Cache::getInstance('File');
+        Cache::set('cfz', 'hello world!');
 
-        $cache->set('cfz', 'hello world!');
-
-        $cache1 = $cache->get('cfz');
+        $cache1 = Cache::get('cfz');
         var_dump($cache1);
-
-        $cache2 = $cache->get('cfz2');
+        self::assertEquals($cache1, 'hello world!');
+        
+        Cache::remove('cfz2');
+        $cache2 = Cache::get('cfz2');
         var_dump($cache2);
+        self::assertNull($cache2);
 
-        $cache->set('cfz2', 'hello world2!');
+        Cache::set('cfz2', 'hello world2!');
 
-        $cache2 = $cache->get('cfz2');
+        $cache2 = Cache::get('cfz2');
         var_dump($cache2);
+        self::assertEquals($cache2, 'hello world2!');
     }
 
+    /**
+     * @depends test__construct
+     */
+    public function testHas()
+    {
+        Cache::remove('cfz1');
+        $has1 = Cache::has('cfz1');
+        var_dump($has1);
+        self::assertFalse($has1);
+
+        Cache::set('cfz1', 'hello world2!');
+        $has2 = Cache::has('cfz1');
+        var_dump($has2);
+        self::assertTrue($has2);
+    }
+
+    /**
+     * @depends test__construct
+     */
+    public function testSet()
+    {
+        Cache::set('cfz', '我想在里面填什么都可以', 100);
+        $cache1 = Cache::get('cfz');
+        var_dump($cache1);
+        self::assertEquals('我想在里面填什么都可以', $cache1);
+
+        Cache::set('cfz2', '我想在里面填什么都可以2');
+        $cache2 = Cache::get('cfz2');
+        var_dump($cache2);
+        self::assertEquals('我想在里面填什么都可以2', $cache2);
+    }
+
+    /**
+     * @depends test__construct
+     */
     public function testRemove()
     {
-        $options = [
-            'host'    => '192.168.56.102',
-            'port'    => 6379,
-            'timeout' => 0,
-            'expire'  => 0,
-            'dbindex' => 15
-        ];
-        $cache = Cache::getInstance('Redis', $options);
-
-        $cache->set('cfz', '我想在里面填什么都可以', 100);
-        $cache->remove('cfz');
-        $cache1 = $cache->get('cfz');
+        Cache::set('cfz', '我想在里面填什么都可以');
+        Cache::remove('cfz');
+        $cache1 = Cache::get('cfz');
         var_dump($cache1);
-
-        $cache->set('cfz2', '我想在里面填什么都可以2');
-        $cache->remove('cfz2');
-        $cache2 = $cache->get('cfz2');
-        var_dump($cache2);
+        self::assertNull($cache1);
     }
 
+    /**
+     * @depends test__construct
+     */
     public function testClear()
     {
-        $options = [
-            'host'    => '192.168.56.102',
-            'port'    => 6379,
-            'timeout' => 0,
-            'expire'  => 0,
-            'dbindex' => 15
-        ];
-        $cache = Cache::getInstance('Redis', $options);
+        Cache::clear();
+        self::assertTrue(true);
+    }
 
-        $cache->clear();
+    public function testGetInstance()
+    {
+        $cache = Cache::getInstance('File');
+        var_dump($cache);
+        self::assertInstanceOf('fize\cache\CacheHandler', $cache);
     }
 }

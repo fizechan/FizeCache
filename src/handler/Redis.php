@@ -90,9 +90,12 @@ class Redis implements CacheHandler
 
     /**
      * 设置一个缓存
+     *
+     * 参数 `$expire` :
+     *   不设置则使用当前配置
      * @param string $name 缓存名
      * @param mixed $value 缓存值
-     * @param int $expire 有效时间，以秒为单位,0表示永久有效,不设置则使用当前配置
+     * @param int $expire 有效时间，以秒为单位,0表示永久有效。
      * @throws Exception
      */
     public function set($name, $value, $expire = null)
@@ -118,7 +121,7 @@ class Redis implements CacheHandler
     public function remove($name)
     {
         $rst = $this->driver->del($name);
-        if (!$rst) {
+        if ($rst === false) {
             throw new Exception($this->driver->getLastError());
         }
     }

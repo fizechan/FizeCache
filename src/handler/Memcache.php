@@ -12,7 +12,9 @@ use Exception;
 
 /**
  * Memcache形式缓存类
+ *
  * 适用于PHP5.6及以下版本，需要Memcache扩展
+ * @todo 待测试
  * @deprecated 官方已停止维护，不建议使用
  */
 class Memcache implements CacheHandler
@@ -88,9 +90,12 @@ class Memcache implements CacheHandler
 
     /**
      * 设置一个缓存
+     *
+     * 参数 `$expire` :
+     *   不设置则使用当前配置
      * @param string $name 缓存名
      * @param mixed $value 缓存值
-     * @param int $expire 有效时间，以秒为单位,0表示永久有效,不设置则使用当前配置
+     * @param int $expire 有效时间，以秒为单位,0表示永久有效。
      * @throws Exception
      */
     public function set($name, $value, $expire = null)

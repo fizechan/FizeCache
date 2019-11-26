@@ -10,7 +10,9 @@ use Exception;
 
 /**
  * Memcached形式缓存类
+ *
  * 仅适用于linux，需要Memcached扩展
+ * @todo 待测试
  */
 class Memcached implements CacheHandler
 {
@@ -82,9 +84,12 @@ class Memcached implements CacheHandler
 
     /**
      * 设置一个缓存
+     *
+     * 参数 `$expire` :
+     *   不设置则使用当前配置
      * @param string $name 缓存名
      * @param mixed $value 缓存值
-     * @param int $expire 有效时间，以秒为单位,0表示永久有效,不设置则使用当前配置
+     * @param int $expire 有效时间，以秒为单位,0表示永久有效。
      * @throws Exception
      */
     public function set($name, $value, $expire = null)
