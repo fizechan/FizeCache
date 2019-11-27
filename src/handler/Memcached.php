@@ -37,7 +37,7 @@ class Memcached implements CacheHandler
             'servers' => [
                 ['localhost', 11211, 100]
             ],
-            'timeout' => 1,
+            'timeout' => 10,
             'expire'  => 0
         ];
         $this->config = array_merge($default_config, $config);

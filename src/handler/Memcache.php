@@ -40,7 +40,7 @@ class Memcache implements CacheHandler
         $default_config = [
             'host'     => 'localhost',
             'port'     => 11211,
-            'timeout'  => 1,
+            'timeout'  => 10,
             'pconnect' => false,
             'debug'    => false,
             'expire'   => 0
