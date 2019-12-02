@@ -13,7 +13,7 @@ class Cache
     private static $handler;
 
     /**
-     * 常规调用请请初始化
+     * 常规调用请先初始化
      * @param string $handler 使用的实际接口名称
      * @param array $config 配置项
      */
