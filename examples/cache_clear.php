@@ -7,9 +7,9 @@ $config = [
     'host'    => '192.168.56.101',
     'port'    => 6379,
     'timeout' => 10,
-    'expire'  => 0,
+    'expires' => null,
     'dbindex' => 15
 ];
-new Cache('Redis', $config);
+new Cache('redis', $config);
 
 Cache::clear();  //cache 被清空

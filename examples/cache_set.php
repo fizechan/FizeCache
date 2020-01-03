@@ -7,10 +7,10 @@ $config = [
     'host'    => '192.168.56.101',
     'port'    => 6379,
     'timeout' => 10,
-    'expire'  => 0,
+    'expires' => null,
     'dbindex' => 15
 ];
-new Cache('Redis', $config);
+new Cache('redis', $config);
 
 Cache::set('cfz', '我想在里面填什么都可以', 100);
 $cache1 = Cache::get('cfz');

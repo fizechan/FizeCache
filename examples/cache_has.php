@@ -7,12 +7,12 @@ $config = [
     'host'    => '192.168.56.101',
     'port'    => 6379,
     'timeout' => 10,
-    'expire'  => 0,
+    'expires' => null,
     'dbindex' => 15
 ];
-new Cache('Redis', $config);
+new Cache('redis', $config);
 
-Cache::remove('cfz1');
+Cache::delete('cfz1');
 $has1 = Cache::has('cfz1');
 var_dump($has1);  //false
 

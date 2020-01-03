@@ -1,11 +1,11 @@
 <?php
 
-namespace handler;
+namespace handler\database;
 
-use fize\cache\handler\Database;
+use fize\cache\handler\database\Pool;
 use PHPUnit\Framework\TestCase;
 
-class DatabaseTest extends TestCase
+class PoolTest extends TestCase
 {
 
     public function test__construct()
@@ -23,119 +23,7 @@ class DatabaseTest extends TestCase
             ],
             'table' => 'sys_cache'
         ];
-
-        $cache = new Database($config);
-        $cache->set('name', '陈峰展');
-        $name = $cache->get('name');
-        self::assertEquals($name, '陈峰展');
-    }
-
-    public function testGet()
-    {
-        $config = [
-            'db'    => [
-                'type'   => 'mysql',
-                'mode'   => 'pdo',
-                'config' => [
-                    'host'     => 'localhost',
-                    'user'     => 'root',
-                    'password' => '123456',
-                    'dbname'   => 'gm_test'
-                ]
-            ],
-            'table' => 'sys_cache'
-        ];
-
-        $cache = new Database($config);
-        $name = $cache->get('name');
-        self::assertEquals($name, '陈峰展');
-    }
-
-    public function testHas()
-    {
-        $config = [
-            'db'    => [
-                'type'   => 'mysql',
-                'mode'   => 'pdo',
-                'config' => [
-                    'host'     => 'localhost',
-                    'user'     => 'root',
-                    'password' => '123456',
-                    'dbname'   => 'gm_test'
-                ]
-            ],
-            'table' => 'sys_cache'
-        ];
-
-        $cache = new Database($config);
-        $rst1 = $cache->has('name');
-        self::assertTrue($rst1);
-        $rst2 = $cache->has('name_not_exists');
-        self::assertFalse($rst2);
-    }
-
-    public function testClear()
-    {
-        $config = [
-            'db'    => [
-                'type'   => 'mysql',
-                'mode'   => 'pdo',
-                'config' => [
-                    'host'     => 'localhost',
-                    'user'     => 'root',
-                    'password' => '123456',
-                    'dbname'   => 'gm_test'
-                ]
-            ],
-            'table' => 'sys_cache'
-        ];
-
-        $cache = new Database($config);
-        $cache->clear();
-        self::assertTrue(true);
-    }
-
-
-    public function testSet()
-    {
-        $config = [
-            'db'    => [
-                'type'   => 'mysql',
-                'mode'   => 'pdo',
-                'config' => [
-                    'host'     => 'localhost',
-                    'user'     => 'root',
-                    'password' => '123456',
-                    'dbname'   => 'gm_test'
-                ]
-            ],
-            'table' => 'sys_cache'
-        ];
-
-        $cache = new Database($config);
-        $cache->set('name2', '陈峰展2');
-        $name = $cache->get('name2');
-        self::assertEquals($name, '陈峰展2');
-    }
-
-    public function testRemove()
-    {
-        $config = [
-            'db'    => [
-                'type'   => 'mysql',
-                'mode'   => 'pdo',
-                'config' => [
-                    'host'     => 'localhost',
-                    'user'     => 'root',
-                    'password' => '123456',
-                    'dbname'   => 'gm_test'
-                ]
-            ],
-            'table' => 'sys_cache'
-        ];
-
-        $cache = new Database($config);
-        $cache->remove('name2');
+        new Pool($config);
         self::assertTrue(true);
     }
 
@@ -152,9 +40,96 @@ class DatabaseTest extends TestCase
                     'dbname'   => 'gm_test'
                 ]
             ],
-            'table' => 'cache'
+            'table' => 't_cache'
         ];
-        Database::initMysql($config);
+        Pool::initMysql($config);
         self::assertTrue(true);
+    }
+
+    public function testSave()
+    {
+        $config = [
+            'db'    => [
+                'type'   => 'mysql',
+                'mode'   => 'pdo',
+                'config' => [
+                    'host'     => 'localhost',
+                    'user'     => 'root',
+                    'password' => '123456',
+                    'dbname'   => 'gm_test'
+                ]
+            ],
+            'table' => 't_cache'
+        ];
+        $pool = new Pool($config);
+        $item = $pool->getItem('cfz');
+        $item->set(['name' => '陈峰展']);
+        $item->expiresAfter(10000);
+        $result = $pool->save($item);
+        self::assertTrue($result);
+    }
+
+    public function testDeleteItem()
+    {
+        $config = [
+            'db'    => [
+                'type'   => 'mysql',
+                'mode'   => 'pdo',
+                'config' => [
+                    'host'     => 'localhost',
+                    'user'     => 'root',
+                    'password' => '123456',
+                    'dbname'   => 'gm_test'
+                ]
+            ],
+            'table' => 't_cache'
+        ];
+        $pool = new Pool($config);
+        $result = $pool->deleteItem('lyp');
+        self::assertTrue($result);
+        $result = $pool->deleteItem('unfound');
+        self::assertTrue($result);
+    }
+
+
+    public function testClear()
+    {
+        $config = [
+            'db'    => [
+                'type'   => 'mysql',
+                'mode'   => 'pdo',
+                'config' => [
+                    'host'     => 'localhost',
+                    'user'     => 'root',
+                    'password' => '123456',
+                    'dbname'   => 'gm_test'
+                ]
+            ],
+            'table' => 't_cache'
+        ];
+        $pool = new Pool($config);
+        $result = $pool->clear();
+        self::assertTrue($result);
+    }
+
+    public function testGetItem()
+    {
+        $config = [
+            'db'    => [
+                'type'   => 'mysql',
+                'mode'   => 'pdo',
+                'config' => [
+                    'host'     => 'localhost',
+                    'user'     => 'root',
+                    'password' => '123456',
+                    'dbname'   => 'gm_test'
+                ]
+            ],
+            'table' => 't_cache'
+        ];
+        $pool = new Pool($config);
+        $item = $pool->getItem('cfz');
+        var_dump($item);
+        self::assertInstanceOf('Psr\Cache\CacheItemInterface', $item);
     }
 }
