@@ -8,6 +8,7 @@
             "email": "chenfengzhan@qq.com"
         }
     ],
+    "minimum-stability": "alpha",
     "require": {
 		"php": ">=5.4.0",
         "psr/cache": "~1.0",
@@ -17,6 +18,7 @@
         "fize/db": "~2.5",
         "fize/crypt": "~3.2",
         "fize/io": "~3.3",
+        "fize/doc": "~0.1",
         "phpunit/phpunit": "^8.0.0"
     },
     "suggest": {
