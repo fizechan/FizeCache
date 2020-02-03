@@ -10,6 +10,6 @@ $config = [
     'expires' => null,
     'dbindex' => 15
 ];
-new Cache('redis', $config);
+new Cache('Redis', $config);
 
 Cache::clear();  //cache 被清空

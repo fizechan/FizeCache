@@ -1,9 +1,9 @@
 <?php
 require_once "../vendor/autoload.php";
 
-use fize\cache\Pool;
+use fize\cache\PoolFactory;
 
-$pool = Pool::getInstance('file');
+$pool = PoolFactory::create('File');
 
 // 使用 pool 的实例方法进行操作
 

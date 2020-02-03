@@ -3,7 +3,7 @@ require_once "../vendor/autoload.php";
 
 use fize\cache\Pool;
 
-$handler = 'file';
+$handler = 'File';
 $config = [
     'path' => __DIR__ . '/../temp',
 ];

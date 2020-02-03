@@ -10,7 +10,7 @@ $config = [
     'expires' => null,
     'dbindex' => 15
 ];
-new Cache('redis', $config);
+new Cache('Redis', $config);
 
 Cache::set('cfz', '我想在里面填什么都可以', 100);
 $cache1 = Cache::get('cfz');

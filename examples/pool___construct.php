@@ -5,10 +5,10 @@ use fize\cache\Pool;
 
 //使用 Pool 静态方法前必须先 Pool 初始化
 
-$handler = 'file';
+$handler = 'File';
 $config = [
     'path' => __DIR__ . '/../temp',
 ];
 new Pool($handler, $config);
 
-//可以开始使用 Cache 静态方法
+//可以开始使用 Pool 静态方法

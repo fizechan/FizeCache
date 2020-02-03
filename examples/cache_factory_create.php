@@ -1,9 +1,9 @@
 <?php
 require_once "../vendor/autoload.php";
 
-use fize\cache\Cache;
+use fize\cache\CacheFactory;
 
-$cache = Cache::getInstance('file');
+$cache = CacheFactory::create('File');
 
 // 使用 cache 的实例方法进行操作
 

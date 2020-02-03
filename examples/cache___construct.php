@@ -12,6 +12,6 @@ $config = [
     'expires' => null,
     'dbindex' => 15
 ];
-new Cache('redis', $config);
+new Cache('Redis', $config);
 
 //可以开始使用 Cache 静态方法
