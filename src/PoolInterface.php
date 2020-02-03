@@ -1,11 +1,9 @@
 <?php
 
-
 namespace fize\cache;
 
-use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\CacheItemInterface;
-
+use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * 缓存池接口

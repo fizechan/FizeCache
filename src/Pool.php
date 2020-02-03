@@ -1,6 +1,5 @@
 <?php
 
-
 namespace fize\cache;
 
 use Psr\Cache\CacheItemInterface;
@@ -21,23 +20,11 @@ class Pool
     /**
      * 常规调用请先初始化
      * @param string $handler 使用的实际接口名称
-     * @param array $config 配置项
+     * @param array  $config  配置项
      */
     public function __construct($handler, array $config = [])
     {
-        self::$handler = self::getInstance($handler, $config);
-    }
-
-    /**
-     * 取得实例
-     * @param string $handler 使用的实际接口名称
-     * @param array $config 配置
-     * @return PoolInterface
-     */
-    public static function getInstance($handler, array $config = [])
-    {
-        $class = '\\' . __NAMESPACE__ . '\\handler\\' . $handler . '\\Pool';
-        return new $class($config);
+        self::$handler = PoolFactory::create($handler, $config);
     }
 
     /**

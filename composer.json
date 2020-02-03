@@ -8,24 +8,26 @@
             "email": "chenfengzhan@qq.com"
         }
     ],
-    "minimum-stability": "alpha",
     "require": {
-		"php": ">=5.4.0",
+		"php": ">=5.6",
         "psr/cache": "~1.0",
         "psr/simple-cache": "~1.0"
     },
     "require-dev": {
-        "fize/db": "~2.5",
-        "fize/crypt": "~3.2",
-        "fize/io": "~3.5",
-        "fize/doc": "~0.1",
-        "phpunit/phpunit": "^8.0.0"
-    },
-    "suggest": {
+        "ext-memcache": "*",
         "ext-memcached": "*",
         "ext-redis": "*",
-        "fize/db": "~2.5",
         "fize/crypt": "~3.2",
+        "fize/db": "~2.5",
+        "fize/io": "~3.5",
+        "phpunit/phpunit": "~9.1"
+    },
+    "suggest": {
+        "ext-memcache": "*",
+        "ext-memcached": "*",
+        "ext-redis": "*",
+        "fize/crypt": "~3.2",
+        "fize/db": "~2.5",
         "fize/io": "~3.3"
     },
 	"autoload": {

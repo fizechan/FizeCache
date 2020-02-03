@@ -1,19 +1,17 @@
 <?php
 
-
-namespace fize\cache\handler\database;
+namespace fize\cache\handler;
 
 use Psr\Cache\CacheItemInterface;
 use fize\db\Db;
 use fize\db\definition\Db as Driver;
-use fize\cache\PoolAbstract;
 use fize\cache\Item;
-
+use fize\cache\PoolAbstract;
 
 /**
- * 缓存池
+ * 数据库形式缓存池
  */
-class Pool extends PoolAbstract
+class DatabasePool extends PoolAbstract
 {
 
     /**
@@ -106,7 +104,7 @@ class Pool extends PoolAbstract
             'expires' => $item->getExpires()
         ];
         $row = $this->db->table($this->config['table'])->where(['key' => $data['key']])->findOrNull();
-        if($row) {
+        if ($row) {
             unset($data['key']);
             $this->db->table($this->config['table'])->where(['key' => $row['key']])->update($data);
         } else {

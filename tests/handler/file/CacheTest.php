@@ -2,7 +2,7 @@
 
 namespace handler\file;
 
-use fize\cache\handler\file\Cache;
+use fize\cache\handler\file\FileCache;
 use PHPUnit\Framework\TestCase;
 
 class CacheTest extends TestCase
@@ -13,7 +13,7 @@ class CacheTest extends TestCase
         $config = [
             'path' => __DIR__ . '/../temp',
         ];
-        new Cache($config);
+        new FileCache($config);
         self::assertTrue(true);
     }
 }

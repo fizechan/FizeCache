@@ -1,6 +1,5 @@
 <?php
 
-
 namespace fize\cache;
 
 use Psr\Cache\CacheItemInterface;
@@ -79,7 +78,7 @@ abstract class PoolAbstract implements PoolInterface
     {
         foreach ($items as $item) {
             $result = $this->save($item);
-            if($result === false) {
+            if ($result === false) {
                 return false;
             }
         }

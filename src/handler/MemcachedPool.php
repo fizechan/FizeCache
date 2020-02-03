@@ -1,18 +1,17 @@
 <?php
 
-
-namespace fize\cache\handler\memcached;
+namespace fize\cache\handler;
 
 use Memcached;
 use Psr\Cache\CacheItemInterface;
-use fize\cache\PoolAbstract;
 use fize\cache\CacheException;
 use fize\cache\Item;
+use fize\cache\PoolAbstract;
 
 /**
  * 缓存池
  */
-class Pool extends PoolAbstract
+class MemcachedPool extends PoolAbstract
 {
 
     /**

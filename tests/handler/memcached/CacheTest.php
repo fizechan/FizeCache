@@ -2,7 +2,7 @@
 
 namespace handler\memcached;
 
-use fize\cache\handler\memcached\Cache;
+use fize\cache\handler\memcached\MemcachedCache;
 use PHPUnit\Framework\TestCase;
 
 /**

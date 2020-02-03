@@ -1,21 +1,21 @@
 <?php
 
-
-namespace fize\cache\handler\file;
+namespace fize\cache\handler;
 
 use Psr\Cache\CacheItemInterface;
 use fize\crypt\Base64;
 use fize\io\Directory;
 use fize\io\File;
-use fize\cache\PoolAbstract;
 use fize\cache\CacheException;
 use fize\cache\Item;
-
+use fize\cache\PoolAbstract;
 
 /**
- * 缓存池
+ * 文件形式缓存池
+ *
+ * 指定缓存文件夹路径需要创建文件夹、读写的权限。
  */
-class Pool extends PoolAbstract
+class FilePool extends PoolAbstract
 {
 
     /**
@@ -49,7 +49,8 @@ class Pool extends PoolAbstract
         }
 
         $item = new Item($key);
-        $file = $this->config['path'] . "/" . Base64::encode($key) . ".cache";
+        $base64_key = Base64::encode($key);
+        $file = $this->config['path'] . "/" . substr($base64_key, 0, 2) . '/' . $base64_key . ".cache";
         if (File::exists($file)) {
             $fso = new File($file);
             $data = unserialize($fso->getContents());
@@ -87,7 +88,8 @@ class Pool extends PoolAbstract
         if (isset($this->saveDeferredItems[$key])) {
             unset($this->saveDeferredItems[$key]);
         }
-        $file = $this->config['path'] . "/" . Base64::encode($key) . ".cache";
+        $base64_key = Base64::encode($key);
+        $file = $this->config['path'] . "/" . substr($base64_key, 0, 2) . '/' . $base64_key . ".cache";
         if (!File::exists($file)) {
             return true;
         }
@@ -107,7 +109,8 @@ class Pool extends PoolAbstract
         /**
          * @var Item $item
          */
-        $file = $this->config['path'] . "/" . Base64::encode($item->getKey()) . ".cache";
+        $base64_key = Base64::encode($item->getKey());
+        $file = $this->config['path'] . "/" . substr($base64_key, 0, 2) . '/' . $base64_key . ".cache";
         $data = [
             'value'   => $item->get(),
             'expires' => $item->getExpires()

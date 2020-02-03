@@ -1,6 +1,5 @@
 <?php
 
-
 namespace fize\cache;
 
 use Psr\SimpleCache\CacheInterface as BaseInterface;

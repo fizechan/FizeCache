@@ -1,0 +1,21 @@
+<?php
+
+namespace fize\cache;
+
+/**
+ * 缓存池工厂
+ */
+class PoolFactory
+{
+    /**
+     * 取得实例
+     * @param string $handler 使用的实际接口名称
+     * @param array  $config  配置
+     * @return PoolInterface
+     */
+    public static function create($handler, array $config = [])
+    {
+        $class = '\\' . __NAMESPACE__ . '\\handler\\' . $handler . 'Pool';
+        return new $class($config);
+    }
+}

@@ -19,29 +19,17 @@ class Cache
     /**
      * 常规调用请先初始化
      * @param string $handler 使用的实际接口名称
-     * @param array $config 配置项
+     * @param array  $config  配置项
      */
     public function __construct($handler, array $config = [])
     {
-        self::$handler = self::getInstance($handler, $config);
-    }
-
-    /**
-     * 取得实例
-     * @param string $handler 使用的实际接口名称
-     * @param array $config 配置
-     * @return CacheInterface
-     */
-    public static function getInstance($handler, array $config = [])
-    {
-        $class = '\\' . __NAMESPACE__ . '\\handler\\' . $handler . '\\Cache';
-        return new $class($config);
+        self::$handler = CacheFactory::create($handler, $config);
     }
 
     /**
      * 获取一个缓存
-     * @param string $key 键名
-     * @param mixed $default 默认值
+     * @param string $key     键名
+     * @param mixed  $default 默认值
      * @return mixed
      */
     public static function get($key, $default = null)
@@ -51,9 +39,9 @@ class Cache
 
     /**
      * 设置一个缓存
-     * @param string $key 键名
-     * @param mixed $value 值
-     * @param DateInterval|int|null $ttl 以秒为单位的过期时长
+     * @param string                $key   键名
+     * @param mixed                 $value 值
+     * @param DateInterval|int|null $ttl   以秒为单位的过期时长
      * @return bool
      */
     public static function set($key, $value, $ttl = null)
@@ -82,8 +70,8 @@ class Cache
 
     /**
      * 获取多个缓存
-     * @param iterable $keys 键名数组
-     * @param mixed $default 默认值
+     * @param iterable $keys    键名数组
+     * @param mixed    $default 默认值
      * @return iterable
      */
     public static function getMultiple($keys, $default = null)
@@ -93,8 +81,8 @@ class Cache
 
     /**
      * 设置多个缓存
-     * @param iterable $values [键名=>值]数组
-     * @param DateInterval|int|null $ttl 以秒为单位的过期时长
+     * @param iterable              $values [键名=>值]数组
+     * @param DateInterval|int|null $ttl    以秒为单位的过期时长
      * @return bool
      */
     public static function setMultiple($values, $ttl = null)

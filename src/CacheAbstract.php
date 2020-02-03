@@ -1,6 +1,5 @@
 <?php
 
-
 namespace fize\cache;
 
 use DateInterval;
@@ -33,8 +32,8 @@ abstract class CacheAbstract implements CacheInterface
 
     /**
      * 获取一个缓存
-     * @param string $key 键名
-     * @param mixed $default 默认值
+     * @param string $key     键名
+     * @param mixed  $default 默认值
      * @return mixed
      */
     public function get($key, $default = null)
@@ -48,9 +47,9 @@ abstract class CacheAbstract implements CacheInterface
 
     /**
      * 设置一个缓存
-     * @param string $key 键名
-     * @param mixed $value 值
-     * @param DateInterval|int|null $ttl 以秒为单位的过期时长
+     * @param string                $key   键名
+     * @param mixed                 $value 值
+     * @param DateInterval|int|null $ttl   以秒为单位的过期时长
      * @return bool
      */
     public function set($key, $value, $ttl = null)
@@ -82,8 +81,8 @@ abstract class CacheAbstract implements CacheInterface
 
     /**
      * 获取多个缓存
-     * @param iterable $keys 键名数组
-     * @param mixed $default 默认值
+     * @param iterable $keys    键名数组
+     * @param mixed    $default 默认值
      * @return iterable
      */
     public function getMultiple($keys, $default = null)
@@ -105,8 +104,8 @@ abstract class CacheAbstract implements CacheInterface
 
     /**
      * 设置多个缓存
-     * @param iterable $values [键名=>值]数组
-     * @param DateInterval|int|null $ttl 以秒为单位的过期时长
+     * @param iterable              $values [键名=>值]数组
+     * @param DateInterval|int|null $ttl    以秒为单位的过期时长
      * @return bool
      */
     public function setMultiple($values, $ttl = null)

@@ -1,17 +1,17 @@
 <?php
 
-
 namespace fize\cache;
 
+use DateTime;
 use DateTimeInterface;
 use DateInterval;
-use DateTime;
 
 /**
  * 缓存项
  *
  * 禁止擅自初始化「Item」对象
  * 该类实例只能使用「CacheItemPoolInterface」对象的 getItem() 方法来获取
+ * @internal 禁止擅自初始化「Item」对象
  */
 class Item implements ItemInterface
 {

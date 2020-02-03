@@ -2,7 +2,7 @@
 
 namespace handler\file;
 
-use fize\cache\handler\file\Pool;
+use fize\cache\handler\file\FilePool;
 use PHPUnit\Framework\TestCase;
 
 class PoolTest extends TestCase
@@ -13,7 +13,7 @@ class PoolTest extends TestCase
         $config = [
             'path' => __DIR__ . '/../../../temp',
         ];
-        new Pool($config);
+        new FilePool($config);
         self::assertTrue(true);
     }
 
@@ -22,7 +22,7 @@ class PoolTest extends TestCase
         $config = [
             'path' => __DIR__ . '/../../../temp',
         ];
-        $pool = new Pool($config);
+        $pool = new FilePool($config);
         $item = $pool->getItem('cfz');
         $item->set(['name' => '陈峰展']);
         $item->expiresAfter(10000);
@@ -35,7 +35,7 @@ class PoolTest extends TestCase
         $config = [
             'path' => __DIR__ . '/../../../temp',
         ];
-        $pool = new Pool($config);
+        $pool = new FilePool($config);
         $result = $pool->deleteItem('lyp');
         self::assertTrue($result);
         $result = $pool->deleteItem('unfound');
@@ -47,7 +47,7 @@ class PoolTest extends TestCase
         $config = [
             'path' => __DIR__ . '/../../../temp',
         ];
-        $pool = new Pool($config);
+        $pool = new FilePool($config);
         $result = $pool->clear();
         self::assertTrue($result);
     }
@@ -57,7 +57,7 @@ class PoolTest extends TestCase
         $config = [
             'path' => __DIR__ . '/../../../temp',
         ];
-        $pool = new Pool($config);
+        $pool = new FilePool($config);
         $item = $pool->getItem('cfz');
         var_dump($item);
         self::assertInstanceOf('Psr\Cache\CacheItemInterface', $item);

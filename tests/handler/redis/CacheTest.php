@@ -2,7 +2,7 @@
 
 namespace handler\redis;
 
-use fize\cache\handler\redis\Cache;
+use fize\cache\handler\redis\RedisCache;
 use PHPUnit\Framework\TestCase;
 
 class CacheTest extends TestCase
@@ -17,7 +17,7 @@ class CacheTest extends TestCase
             'expires' => null,
             'dbindex' => 15
         ];
-        new Cache($config);
+        new RedisCache($config);
         self::assertTrue(true);
     }
 }
