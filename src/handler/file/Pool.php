@@ -3,13 +3,14 @@
 
 namespace fize\cache\handler\file;
 
-use fize\cache\PoolAbstract;
-use fize\cache\CacheException;
-use fize\cache\Item;
+use Psr\Cache\CacheItemInterface;
 use fize\crypt\Base64;
 use fize\io\Directory;
 use fize\io\File;
-use Psr\Cache\CacheItemInterface;
+use fize\cache\PoolAbstract;
+use fize\cache\CacheException;
+use fize\cache\Item;
+
 
 /**
  * 缓存池
@@ -52,7 +53,6 @@ class Pool extends PoolAbstract
         if (File::exists($file)) {
             $fso = new File($file);
             $data = unserialize($fso->getContents());
-            $fso->close();
             if (!$data || !array_key_exists('expires', $data) || !array_key_exists('value', $data)) {
                 throw new CacheException("An error occurred while fetching the cache [{$key}]");
             }
@@ -113,9 +113,8 @@ class Pool extends PoolAbstract
             'expires' => $item->getExpires()
         ];
 
-        $fso = new File($file, 'w');
+        $fso = new File($file);
         $result = $fso->putContents(serialize($data));
-        $fso->close();
         $this->deleteExpiredItems();
         return $result !== false;
     }

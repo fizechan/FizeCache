@@ -3,11 +3,12 @@
 
 namespace fize\cache\handler\database;
 
-use fize\cache\PoolAbstract;
+use Psr\Cache\CacheItemInterface;
 use fize\db\Db;
 use fize\db\definition\Db as Driver;
+use fize\cache\PoolAbstract;
 use fize\cache\Item;
-use Psr\Cache\CacheItemInterface;
+
 
 /**
  * 缓存池

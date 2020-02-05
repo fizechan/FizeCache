@@ -4,10 +4,10 @@
 namespace fize\cache\handler\memcached;
 
 use Memcached;
+use Psr\Cache\CacheItemInterface;
 use fize\cache\PoolAbstract;
 use fize\cache\CacheException;
 use fize\cache\Item;
-use Psr\Cache\CacheItemInterface;
 
 /**
  * 缓存池
