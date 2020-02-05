@@ -113,8 +113,9 @@ class Pool extends PoolAbstract
             'expires' => $item->getExpires()
         ];
 
-        $fso = new File($file);
+        $fso = new File($file, 'w');
         $result = $fso->putContents(serialize($data));
+        $fso->close();
         $this->deleteExpiredItems();
         return $result !== false;
     }
