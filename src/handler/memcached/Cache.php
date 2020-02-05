@@ -4,12 +4,12 @@
 namespace fize\cache\handler\memcached;
 
 
-use fize\cache\AbstractCache;
+use fize\cache\CacheAbstract;
 
 /**
  * 简易缓存
  */
-class Cache extends AbstractCache
+class Cache extends CacheAbstract
 {
 
     /**

@@ -3,7 +3,7 @@
 
 namespace fize\cache\handler\file;
 
-use fize\cache\AbstractPool;
+use fize\cache\PoolAbstract;
 use fize\cache\CacheException;
 use fize\cache\Item;
 use fize\crypt\Base64;
@@ -14,7 +14,7 @@ use Psr\Cache\CacheItemInterface;
 /**
  * 缓存池
  */
-class Pool extends AbstractPool
+class Pool extends PoolAbstract
 {
 
     /**
@@ -138,7 +138,6 @@ class Pool extends AbstractPool
                 if (!is_null($data['expires']) && $data['expires'] < time()) {
                     $fso->delete();
                 }
-                $fso->close();
             }
         }, true);
         $dir->close();

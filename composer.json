@@ -17,7 +17,7 @@
     "require-dev": {
         "fize/db": "~2.5",
         "fize/crypt": "~3.2",
-        "fize/io": "~3.3",
+        "fize/io": "~3.5",
         "fize/doc": "~0.1",
         "phpunit/phpunit": "^8.0.0"
     },

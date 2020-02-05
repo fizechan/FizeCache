@@ -8,7 +8,7 @@ use Psr\Cache\CacheItemInterface;
 /**
  * 缓存池
  */
-abstract class AbstractPool implements PoolInterface
+abstract class PoolAbstract implements PoolInterface
 {
     /**
      * @var array 配置

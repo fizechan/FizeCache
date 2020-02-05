@@ -9,7 +9,7 @@ use Traversable;
 /**
  * 缓存
  */
-abstract class AbstractCache implements CacheInterface
+abstract class CacheAbstract implements CacheInterface
 {
 
     /**

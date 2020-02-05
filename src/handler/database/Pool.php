@@ -3,7 +3,7 @@
 
 namespace fize\cache\handler\database;
 
-use fize\cache\AbstractPool;
+use fize\cache\PoolAbstract;
 use fize\db\Db;
 use fize\db\definition\Db as Driver;
 use fize\cache\Item;
@@ -12,7 +12,7 @@ use Psr\Cache\CacheItemInterface;
 /**
  * 缓存池
  */
-class Pool extends AbstractPool
+class Pool extends PoolAbstract
 {
 
     /**

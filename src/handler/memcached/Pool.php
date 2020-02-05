@@ -4,7 +4,7 @@
 namespace fize\cache\handler\memcached;
 
 use Memcached;
-use fize\cache\AbstractPool;
+use fize\cache\PoolAbstract;
 use fize\cache\CacheException;
 use fize\cache\Item;
 use Psr\Cache\CacheItemInterface;
@@ -12,7 +12,7 @@ use Psr\Cache\CacheItemInterface;
 /**
  * 缓存池
  */
-class Pool extends AbstractPool
+class Pool extends PoolAbstract
 {
 
     /**
