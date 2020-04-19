@@ -33,6 +33,14 @@ class FilePool extends PoolAbstract
     }
 
     /**
+     * 析构时删除过期项
+     */
+    public function __destruct()
+    {
+        $this->deleteExpiredItems();
+    }
+
+    /**
      * 获取缓存项
      * @param string $key 键名
      * @return CacheItemInterface
@@ -73,6 +81,7 @@ class FilePool extends PoolAbstract
     public function clear()
     {
         $this->saveDeferredItems = [];
+        var_dump($this->config);
         $dir = new Directory($this->config['path'], true);
         return $dir->clear();
     }
@@ -94,9 +103,7 @@ class FilePool extends PoolAbstract
             return true;
         }
         $fso = new File($file);
-        $result = $fso->delete();
-        $this->deleteExpiredItems();
-        return $result;
+        return $fso->delete();
     }
 
     /**
@@ -119,21 +126,31 @@ class FilePool extends PoolAbstract
         $fso = new File($file, 'w');
         $result = $fso->putContents(serialize($data));
         $fso->close();
-        $this->deleteExpiredItems();
         return $result !== false;
     }
 
     /**
      * 删除过期项
+     * @param string|null $path 指定缓存文件夹，null 表示默认设置
      */
-    protected function deleteExpiredItems()
+    protected function deleteExpiredItems($path = null)
     {
-        $dir = new Directory($this->config['path'], true);
+        if (is_null($path)) {
+            $path = $this->config['path'];
+        }
+        $dir = new Directory($path, true);
         $dir->open();
-        $dir->read(function ($file) {
-            $pathinfo = pathinfo($this->config['path'] . "/" . $file);
+        $dir->read(function ($item) use ($path) {
+            $full_path = $path . "/" . $item;
+
+            if (Directory::isDir($full_path)) {
+                $this->deleteExpiredItems($full_path);
+                return;
+            }
+
+            $pathinfo = pathinfo($full_path);
             if ($pathinfo['extension'] == 'cache') {
-                $fso = new File($this->config['path'] . "/" . $file);
+                $fso = new File($full_path);
                 $data = unserialize($fso->getContents());
                 if (!$data || !array_key_exists('expires', $data) || !array_key_exists('value', $data)) {
                     $fso->delete();

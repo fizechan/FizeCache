@@ -4,13 +4,13 @@
 use fize\cache\Pool;
 use PHPUnit\Framework\TestCase;
 
-class PoolTest extends TestCase
+class TestPool extends TestCase
 {
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        $handler = 'file';
+        $handler = 'File';
         $config = [
             'path' => __DIR__ . '/../temp',
         ];
@@ -19,7 +19,7 @@ class PoolTest extends TestCase
 
     public function test__construct()
     {
-        $handler = 'file';
+        $handler = 'File';
         $config = [
             'path' => __DIR__ . '/../temp',
         ];

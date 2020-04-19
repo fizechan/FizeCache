@@ -4,7 +4,7 @@
 use fize\cache\Cache;
 use PHPUnit\Framework\TestCase;
 
-class CacheTest extends TestCase
+class TestCache extends TestCase
 {
 
     public function __construct($name = null, array $data = [], $dataName = '')
@@ -25,13 +25,6 @@ class CacheTest extends TestCase
         ];
         new Cache($handler, $config);
         self::assertTrue(true);
-    }
-
-    public function testGetInstance()
-    {
-        $cache = Cache::getInstance('file');
-        var_dump($cache);
-        self::assertInstanceOf('fize\cache\CacheInterface', $cache);
     }
 
     public function testGet()

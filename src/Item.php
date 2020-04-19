@@ -2,9 +2,9 @@
 
 namespace fize\cache;
 
+use DateInterval;
 use DateTime;
 use DateTimeInterface;
-use DateInterval;
 
 /**
  * 缓存项
