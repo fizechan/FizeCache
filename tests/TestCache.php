@@ -39,7 +39,7 @@ class TestCache extends TestCase
 
     public function testSet()
     {
-        Cache::set('cfz', '我想在里面填什么都可以', 10);
+        Cache::set('cfz', '我想在里面填什么都可以', 100);
         $cache1 = Cache::get('cfz');
         var_dump($cache1);
         self::assertEquals('我想在里面填什么都可以', $cache1);

@@ -81,9 +81,7 @@ class FilePool extends PoolAbstract
     public function clear()
     {
         $this->saveDeferredItems = [];
-        var_dump($this->config);
-        $dir = new Directory($this->config['path'], true);
-        return $dir->clear();
+        return Directory::clearDirectory($this->config['path']);
     }
 
     /**

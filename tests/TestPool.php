@@ -27,12 +27,6 @@ class TestPool extends TestCase
         self::assertTrue(true);
     }
 
-    public function testGetInstance()
-    {
-        $pool = Pool::getInstance('file');
-        self::assertInstanceOf('fize\cache\PoolInterface', $pool);
-    }
-
     public function testGetItem()
     {
         $item = Pool::getItem('cfz');
