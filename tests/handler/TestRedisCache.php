@@ -1,11 +1,11 @@
 <?php
 
-namespace handler\redis;
+namespace handler;
 
-use fize\cache\handler\redis\RedisCache;
+use fize\cache\handler\RedisCache;
 use PHPUnit\Framework\TestCase;
 
-class CacheTest extends TestCase
+class TestRedisCache extends TestCase
 {
 
     public function test__construct()

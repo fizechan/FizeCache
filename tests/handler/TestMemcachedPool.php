@@ -1,14 +1,14 @@
 <?php
 
-namespace handler\memcached;
+namespace handler;
 
-use fize\cache\handler\memcached\MemcachedPool;
+use fize\cache\handler\MemcachedPool;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @todo 待测试
  */
-class PoolTest extends TestCase
+class TestMemcachedPool extends TestCase
 {
 
     public function testGetItem()

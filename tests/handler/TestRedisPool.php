@@ -1,11 +1,11 @@
 <?php
 
-namespace handler\redis;
+namespace handler;
 
-use fize\cache\handler\redis\RedisPool;
+use fize\cache\handler\RedisPool;
 use PHPUnit\Framework\TestCase;
 
-class PoolTest extends TestCase
+class TestRedisPool extends TestCase
 {
 
     public function test__construct()

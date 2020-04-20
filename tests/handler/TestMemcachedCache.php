@@ -1,14 +1,14 @@
 <?php
 
-namespace handler\memcached;
+namespace handler;
 
-use fize\cache\handler\memcached\MemcachedCache;
+use fize\cache\handler\MemcachedCache;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @todo 待测试
  */
-class CacheTest extends TestCase
+class TestMemcachedCache extends TestCase
 {
 
     public function test__construct()
