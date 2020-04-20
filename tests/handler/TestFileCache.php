@@ -1,17 +1,17 @@
 <?php
 
-namespace handler\file;
+namespace handler;
 
-use fize\cache\handler\file\FileCache;
+use fize\cache\handler\FileCache;
 use PHPUnit\Framework\TestCase;
 
-class CacheTest extends TestCase
+class TestFileCache extends TestCase
 {
 
     public function test__construct()
     {
         $config = [
-            'path' => __DIR__ . '/../temp',
+            'path' => __DIR__ . '/../../temp',
         ];
         new FileCache($config);
         self::assertTrue(true);

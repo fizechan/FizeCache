@@ -1,17 +1,17 @@
 <?php
 
-namespace handler\file;
+namespace handler;
 
-use fize\cache\handler\file\FilePool;
+use fize\cache\handler\FilePool;
 use PHPUnit\Framework\TestCase;
 
-class PoolTest extends TestCase
+class TestFilePool extends TestCase
 {
 
     public function test__construct()
     {
         $config = [
-            'path' => __DIR__ . '/../../../temp',
+            'path' => __DIR__ . '/../../temp',
         ];
         new FilePool($config);
         self::assertTrue(true);
@@ -20,7 +20,7 @@ class PoolTest extends TestCase
     public function testSave()
     {
         $config = [
-            'path' => __DIR__ . '/../../../temp',
+            'path' => __DIR__ . '/../../temp',
         ];
         $pool = new FilePool($config);
         $item = $pool->getItem('cfz');
@@ -33,7 +33,7 @@ class PoolTest extends TestCase
     public function testDeleteItem()
     {
         $config = [
-            'path' => __DIR__ . '/../../../temp',
+            'path' => __DIR__ . '/../../temp',
         ];
         $pool = new FilePool($config);
         $result = $pool->deleteItem('lyp');
@@ -45,7 +45,7 @@ class PoolTest extends TestCase
     public function testClear()
     {
         $config = [
-            'path' => __DIR__ . '/../../../temp',
+            'path' => __DIR__ . '/../../temp',
         ];
         $pool = new FilePool($config);
         $result = $pool->clear();
@@ -55,7 +55,7 @@ class PoolTest extends TestCase
     public function testGetItem()
     {
         $config = [
-            'path' => __DIR__ . '/../../../temp',
+            'path' => __DIR__ . '/../../temp',
         ];
         $pool = new FilePool($config);
         $item = $pool->getItem('cfz');
