@@ -37,6 +37,14 @@ class DatabasePool extends PoolAbstract
     }
 
     /**
+     * 析构时删除过期项
+     */
+    public function __destruct()
+    {
+        $this->deleteExpiredItems();
+    }
+
+    /**
      * 获取缓存项
      * @param string $key 键名
      * @return CacheItemInterface
@@ -87,7 +95,6 @@ class DatabasePool extends PoolAbstract
             unset($this->saveDeferredItems[$key]);
         }
         $this->db->table($this->config['table'])->where(['key' => $key])->delete();
-        $this->deleteExpiredItems();
         return true;
     }
 

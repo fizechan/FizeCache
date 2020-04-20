@@ -1,11 +1,11 @@
 <?php
 
-namespace handler\database;
+namespace handler;
 
-use fize\cache\handler\database\Cache;
+use fize\cache\handler\DatabaseCache;
 use PHPUnit\Framework\TestCase;
 
-class CacheTest extends TestCase
+class TestDatabaseCache extends TestCase
 {
 
     public function test__construct()
@@ -23,7 +23,7 @@ class CacheTest extends TestCase
             ],
             'table' => 'sys_cache'
         ];
-        new Cache($config);
+        new DatabaseCache($config);
         self::assertTrue(true);
     }
 }

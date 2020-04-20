@@ -1,11 +1,11 @@
 <?php
 
-namespace handler\database;
+namespace handler;
 
-use fize\cache\handler\database\DatabasePool;
+use fize\cache\handler\DatabasePool;
 use PHPUnit\Framework\TestCase;
 
-class PoolTest extends TestCase
+class TestDatabasePool extends TestCase
 {
 
     public function test__construct()
@@ -40,7 +40,7 @@ class PoolTest extends TestCase
                     'dbname'   => 'gm_test'
                 ]
             ],
-            'table' => 't_cache'
+            'table' => 't_cache2'
         ];
         DatabasePool::initMysql($config);
         self::assertTrue(true);
@@ -90,7 +90,6 @@ class PoolTest extends TestCase
         $result = $pool->deleteItem('unfound');
         self::assertTrue($result);
     }
-
 
     public function testClear()
     {
