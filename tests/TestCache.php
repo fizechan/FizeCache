@@ -10,7 +10,7 @@ class TestCache extends TestCase
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        $handler = 'file';
+        $handler = 'File';
         $config = [
             'path' => __DIR__ . '/../temp',
         ];
@@ -19,7 +19,7 @@ class TestCache extends TestCase
 
     public function test__construct()
     {
-        $handler = 'file';
+        $handler = 'File';
         $config = [
             'path' => __DIR__ . '/../temp',
         ];
@@ -34,7 +34,7 @@ class TestCache extends TestCase
 
         $cache1 = Cache::get('cfz');
         var_dump($cache1);
-        self::assertEquals($cache1, 'hello world!');
+        self::assertEquals('hello world!', $cache1);
     }
 
     public function testSet()

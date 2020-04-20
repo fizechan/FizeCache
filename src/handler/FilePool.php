@@ -58,7 +58,7 @@ class FilePool extends PoolAbstract
 
         $item = new Item($key);
         $base64_key = Base64::encode($key);
-        $file = $this->config['path'] . "/" . substr($base64_key, 0, 2) . '/' . $base64_key . ".cache";
+        $file = $this->config['path'] . "/" . strtolower(substr($base64_key, 0, 2)) . '/' . $base64_key . ".cache";
         if (File::exists($file)) {
             $fso = new File($file);
             $data = unserialize($fso->getContents());
@@ -98,7 +98,7 @@ class FilePool extends PoolAbstract
             unset($this->saveDeferredItems[$key]);
         }
         $base64_key = Base64::encode($key);
-        $file = $this->config['path'] . "/" . substr($base64_key, 0, 2) . '/' . $base64_key . ".cache";
+        $file = $this->config['path'] . "/" . strtolower(substr($base64_key, 0, 2)) . '/' . $base64_key . ".cache";
         if (!File::exists($file)) {
             return true;
         }
@@ -117,7 +117,7 @@ class FilePool extends PoolAbstract
          * @var Item $item
          */
         $base64_key = Base64::encode($item->getKey());
-        $file = $this->config['path'] . "/" . substr($base64_key, 0, 2) . '/' . $base64_key . ".cache";
+        $file = $this->config['path'] . "/" . strtolower(substr($base64_key, 0, 2)) . '/' . $base64_key . ".cache";
         $data = [
             'value'   => $item->get(),
             'expires' => $item->getExpires()
