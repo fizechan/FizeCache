@@ -11,7 +11,7 @@ class TestRedisPool extends TestCase
     public function test__construct()
     {
         $config = [
-            'host'    => '192.168.56.101',
+            'host'    => '127.0.0.1',
             'port'    => 6379,
             'timeout' => 10,
             'expires' => null,
@@ -24,7 +24,7 @@ class TestRedisPool extends TestCase
     public function testSave()
     {
         $config = [
-            'host'    => '192.168.56.101',
+            'host'    => '127.0.0.1',
             'port'    => 6379,
             'timeout' => 10,
             'expires' => null,
@@ -41,7 +41,7 @@ class TestRedisPool extends TestCase
     public function testDeleteItem()
     {
         $config = [
-            'host'    => '192.168.56.101',
+            'host'    => '127.0.0.1',
             'port'    => 6379,
             'timeout' => 10,
             'expires' => null,
@@ -57,7 +57,7 @@ class TestRedisPool extends TestCase
     public function testClear()
     {
         $config = [
-            'host'    => '192.168.56.101',
+            'host'    => '127.0.0.1',
             'port'    => 6379,
             'timeout' => 10,
             'expires' => null,
@@ -71,7 +71,7 @@ class TestRedisPool extends TestCase
     public function testGetItem()
     {
         $config = [
-            'host'    => '192.168.56.101',
+            'host'    => '127.0.0.1',
             'port'    => 6379,
             'timeout' => 10,
             'expires' => null,

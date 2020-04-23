@@ -9,7 +9,7 @@ use fize\cache\Item;
 use fize\cache\PoolAbstract;
 
 /**
- * 缓存池
+ * Redis形式缓存池
  */
 class RedisPool extends PoolAbstract
 {

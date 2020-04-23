@@ -5,7 +5,7 @@ namespace fize\cache\handler;
 use fize\cache\CacheAbstract;
 
 /**
- * 简易缓存
+ * Redis形式简易缓存
  */
 class RedisCache extends CacheAbstract
 {
