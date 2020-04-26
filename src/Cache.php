@@ -12,7 +12,7 @@ use DateInterval;
 class Cache
 {
     /**
-     * @var CacheInterface
+     * @var CacheInterface 处理器
      */
     private static $handler;
 

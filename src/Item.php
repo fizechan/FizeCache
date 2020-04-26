@@ -11,7 +11,6 @@ use DateTimeInterface;
  *
  * 禁止擅自初始化「Item」对象
  * 该类实例只能使用「CacheItemPoolInterface」对象的 getItem() 方法来获取
- * @internal 禁止擅自初始化「Item」对象
  */
 class Item implements ItemInterface
 {
@@ -39,6 +38,7 @@ class Item implements ItemInterface
     /**
      * 构造
      * @param string $key 键名
+     * @internal 禁止擅自初始化「Item」对象
      */
     public function __construct($key)
     {
@@ -124,6 +124,7 @@ class Item implements ItemInterface
      * 外部不应直接调用该方法
      * @param bool $is_hit 是否命中
      * @return $this
+     * @internal 外部不应直接调用该方法
      */
     public function setHit($is_hit)
     {
@@ -134,6 +135,7 @@ class Item implements ItemInterface
     /**
      * 获取缓存项的过期时间戳
      * @return int|null 返回 null 表示永不过期
+     * @internal 外部不应直接调用该方法
      */
     public function getExpires()
     {
@@ -143,6 +145,7 @@ class Item implements ItemInterface
     /**
      * 根据设置判断缓存是否有效
      * @return bool
+     * @internal 外部不应直接调用该方法
      */
     public function checkHit()
     {

@@ -13,7 +13,7 @@ class Pool
 {
 
     /**
-     * @var PoolInterface
+     * @var PoolInterface 处理器
      */
     private static $handler;
 

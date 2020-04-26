@@ -11,6 +11,7 @@ class TestCacheFactory extends TestCase
     {
         $cache = CacheFactory::create('File');
         var_dump($cache);
+
         self::assertInstanceOf('fize\cache\CacheInterface', $cache);
     }
 }
