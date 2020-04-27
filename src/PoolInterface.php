@@ -7,6 +7,8 @@ use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * 缓存池接口
+ *
+ * 在 PSR 基础上又定义了一些相关接口
  */
 interface PoolInterface extends CacheItemPoolInterface
 {

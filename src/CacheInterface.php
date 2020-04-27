@@ -6,6 +6,8 @@ use Psr\SimpleCache\CacheInterface as BaseInterface;
 
 /**
  * 简易缓存接口
+ *
+ * 在 PSR 基础上又定义了一些相关接口
  */
 interface CacheInterface extends BaseInterface
 {

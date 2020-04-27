@@ -8,7 +8,7 @@ namespace fize\cache;
 class PoolFactory
 {
     /**
-     * 取得实例
+     * 创建一个缓存池实例
      * @param string $handler 使用的实际接口名称
      * @param array  $config  配置
      * @return PoolInterface

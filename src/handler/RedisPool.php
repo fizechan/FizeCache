@@ -20,7 +20,7 @@ class RedisPool extends PoolAbstract
     private $redis;
 
     /**
-     * 构造函数
+     * 构造
      * @param array $config 初始化默认选项
      */
     public function __construct(array $config = [])

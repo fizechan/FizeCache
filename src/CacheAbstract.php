@@ -6,7 +6,7 @@ use DateInterval;
 use Traversable;
 
 /**
- * 缓存
+ * 缓存抽象类
  */
 abstract class CacheAbstract implements CacheInterface
 {

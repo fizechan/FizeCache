@@ -5,7 +5,7 @@ namespace fize\cache;
 use Psr\Cache\CacheItemInterface;
 
 /**
- * 缓存池
+ * 缓存池抽象类
  */
 abstract class PoolAbstract implements PoolInterface
 {

@@ -11,7 +11,7 @@ class RedisCache extends CacheAbstract
 {
 
     /**
-     * 构造函数
+     * 构造
      * @param array $config 配置
      */
     public function __construct(array $config = [])

@@ -20,7 +20,7 @@ class DatabasePool extends PoolAbstract
     protected $db;
 
     /**
-     * 构造函数
+     * 构造
      * @param array $config 配置
      */
     public function __construct(array $config = [])
