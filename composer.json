@@ -1,38 +1,38 @@
 {
-  "name": "fize/cache",
-  "description": "一个易于扩展的缓存类库。",
-  "license": "MIT",
   "authors": [
     {
       "name": "FizeChan",
       "email": "chenfengzhan@qq.com"
     }
   ],
+  "autoload": {
+    "psr-4": {
+      "fize\\cache\\": "src"
+    }
+  },
+  "description": "一个易于扩展的缓存类库。",
+  "license": "MIT",
+  "name": "fize/cache",
   "require": {
     "php": ">=5.6",
-    "psr/cache": "~1.0",
-    "psr/simple-cache": "~1.0"
+    "psr/cache": "~1.0.0",
+    "psr/simple-cache": "~1.0.0"
   },
   "require-dev": {
     "ext-memcache": "*",
     "ext-memcached": "*",
     "ext-redis": "*",
-    "fize/crypt": "~3.2",
-    "fize/db": "~2.5",
-    "fize/io": "~3.7",
-    "phpunit/phpunit": "~9.1"
+    "fize/crypt": "~3.2.0",
+    "fize/db": "~2.6.0",
+    "fize/io": "~3.7.0",
+    "phpunit/phpunit": "~9.1.0"
   },
   "suggest": {
     "ext-memcache": "*",
     "ext-memcached": "*",
     "ext-redis": "*",
-    "fize/crypt": "~3.2",
-    "fize/db": "~2.5",
-    "fize/io": "~3.7"
-  },
-  "autoload": {
-    "psr-4": {
-      "fize\\cache\\": "src"
-    }
+    "fize/crypt": "~3.2.0",
+    "fize/db": "~2.6.0",
+    "fize/io": "~3.7.0"
   }
 }
