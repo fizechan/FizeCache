@@ -69,7 +69,7 @@ class MemcachedPool extends PoolAbstract
 
         $item = new Item($key);
         $value = $this->memcached->get($key);
-        if ($value !== false) {
+        if ($this->memcached->getResultCode() != Memcached::RES_NOTFOUND) {
             $item->set(unserialize($value));
             $item->setHit(true);
         }
@@ -92,7 +92,11 @@ class MemcachedPool extends PoolAbstract
      */
     public function deleteItem($key)
     {
-        return $this->memcached->delete($key);
+        $result = $this->memcached->delete($key);
+        if ($this->memcached->getResultCode() == Memcached::RES_NOTFOUND) {
+            return true;
+        }
+        return $result;
     }
 
     /**
@@ -107,9 +111,6 @@ class MemcachedPool extends PoolAbstract
         $expires = $item->getExpires();
         if (is_null($expires)) {
             $expires = $this->config['expires'];
-        }
-        if ($expires > 0) {
-            $expires = time() + $expires;
         }
         return $this->memcached->set($key, $value, $expires);
     }
