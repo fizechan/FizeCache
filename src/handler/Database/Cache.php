@@ -1,13 +1,13 @@
 <?php
 
-namespace fize\cache\handler;
+namespace fize\cache\handler\Database;
 
 use fize\cache\CacheAbstract;
 
 /**
  * 数据库形式简易缓存
  */
-class DatabaseCache extends CacheAbstract
+class Cache extends CacheAbstract
 {
 
     /**
@@ -17,6 +17,6 @@ class DatabaseCache extends CacheAbstract
     public function __construct(array $config = [])
     {
         parent::__construct($config);
-        $this->pool = new DatabasePool($this->config);
+        $this->pool = new Pool($this->config);
     }
 }

@@ -1,28 +1,28 @@
 <?php
 
-namespace handler;
+namespace handler\File;
 
-use fize\cache\handler\FilePool;
+use fize\cache\handler\File\Pool;
 use PHPUnit\Framework\TestCase;
 
-class TestFilePool extends TestCase
+class TestPool extends TestCase
 {
 
     public function test__construct()
     {
         $config = [
-            'path' => __DIR__ . '/../../temp',
+            'path' => __DIR__ . '/../../../temp',
         ];
-        new FilePool($config);
+        new Pool($config);
         self::assertTrue(true);
     }
 
     public function testSave()
     {
         $config = [
-            'path' => __DIR__ . '/../../temp',
+            'path' => __DIR__ . '/../../../temp',
         ];
-        $pool = new FilePool($config);
+        $pool = new Pool($config);
         $item = $pool->getItem('cfz');
         $item->set(['name' => '陈峰展']);
         $item->expiresAfter(10000);
@@ -33,9 +33,9 @@ class TestFilePool extends TestCase
     public function testDeleteItem()
     {
         $config = [
-            'path' => __DIR__ . '/../../temp',
+            'path' => __DIR__ . '/../../../temp',
         ];
-        $pool = new FilePool($config);
+        $pool = new Pool($config);
         $result = $pool->deleteItem('lyp');
         self::assertTrue($result);
         $result = $pool->deleteItem('unfound');
@@ -45,9 +45,9 @@ class TestFilePool extends TestCase
     public function testClear()
     {
         $config = [
-            'path' => __DIR__ . '/../../temp',
+            'path' => __DIR__ . '/../../../temp',
         ];
-        $pool = new FilePool($config);
+        $pool = new Pool($config);
         $result = $pool->clear();
         self::assertTrue($result);
     }
@@ -55,9 +55,9 @@ class TestFilePool extends TestCase
     public function testGetItem()
     {
         $config = [
-            'path' => __DIR__ . '/../../temp',
+            'path' => __DIR__ . '/../../../temp',
         ];
-        $pool = new FilePool($config);
+        $pool = new Pool($config);
         $item = $pool->getItem('cfz');
         var_dump($item);
         self::assertInstanceOf('Psr\Cache\CacheItemInterface', $item);

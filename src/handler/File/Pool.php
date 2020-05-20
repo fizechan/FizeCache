@@ -1,6 +1,6 @@
 <?php
 
-namespace fize\cache\handler;
+namespace fize\cache\handler\File;
 
 use Psr\Cache\CacheItemInterface;
 use fize\crypt\Base64;
@@ -15,7 +15,7 @@ use fize\cache\PoolAbstract;
  *
  * 指定缓存文件夹路径需要创建文件夹、读写的权限。
  */
-class FilePool extends PoolAbstract
+class Pool extends PoolAbstract
 {
 
     /**

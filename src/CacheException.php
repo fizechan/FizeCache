@@ -9,7 +9,7 @@ use Psr\SimpleCache\CacheException as SimpleBaseInterface;
 /**
  * 缓存异常
  *
- * 本遗产包含简易缓存及常规缓存
+ * 本异常包含简易缓存及常规缓存
  */
 class CacheException extends RuntimeException implements BaseInterface, SimpleBaseInterface
 {

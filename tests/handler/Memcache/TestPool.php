@@ -1,30 +1,30 @@
 <?php
 
-namespace handler;
+namespace handler\Memcache;
 
-use fize\cache\handler\MemcachePool;
+use fize\cache\handler\Memcache\Pool;
 use PHPUnit\Framework\TestCase;
 
 
-class TestMemcachePool extends TestCase
+class TestPool extends TestCase
 {
 
     public function test__construct()
     {
-        new MemcachePool();
+        new Pool();
         self::assertTrue(true);
     }
 
     public function test__destruct()
     {
-        $pool = new MemcachePool();
+        $pool = new Pool();
         unset($pool);
         self::assertTrue(true);
     }
 
     public function testGetItem()
     {
-        $pool = new MemcachePool();
+        $pool = new Pool();
         $item = $pool->getItem('cfz');
         var_dump($item);
         var_dump($item->get());
@@ -33,14 +33,14 @@ class TestMemcachePool extends TestCase
 
     public function testClear()
     {
-        $pool = new MemcachePool();
+        $pool = new Pool();
         $result = $pool->clear();
         self::assertTrue($result);
     }
 
     public function testDeleteItem()
     {
-        $pool = new MemcachePool();
+        $pool = new Pool();
         $result = $pool->deleteItem('lyp');
         self::assertTrue($result);
         $result = $pool->deleteItem('unfound');
@@ -49,7 +49,7 @@ class TestMemcachePool extends TestCase
 
     public function testSave()
     {
-        $pool = new MemcachePool();
+        $pool = new Pool();
         $item = $pool->getItem('cfz');
         $item->set(['name' => '陈峰展']);
         $item->expiresAfter(10000);

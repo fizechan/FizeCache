@@ -1,8 +1,8 @@
 <?php
 
-namespace fize\cache\handler;
+namespace fize\cache\handler\Memcached;
 
-use Memcache;
+use Memcached;
 use Psr\Cache\CacheItemInterface;
 use fize\cache\CacheException;
 use fize\cache\Item;
@@ -11,13 +11,13 @@ use fize\cache\PoolAbstract;
 /**
  * 缓存池
  */
-class MemcachePool extends PoolAbstract
+class Pool extends PoolAbstract
 {
 
     /**
-     * @var Memcache Memcache对象
+     * @var Memcached Memcached对象
      */
-    protected $memcache;
+    protected $memcached;
 
     /**
      * 构造
@@ -28,32 +28,27 @@ class MemcachePool extends PoolAbstract
         parent::__construct($config);
         $default_config = [
             'servers' => [
-                ['localhost', 11211, true, 100]
+                ['localhost', 11211, 0]
             ],
-            'expires' => null
+            'timeout' => 10,
+            'expires' => 0
         ];
         $config = array_merge($default_config, $config);
         $this->config = $config;
 
-        $this->memcache = new Memcache();
-        foreach ($this->config['servers'] as $cfg) {
-            $host = $cfg[0];
-            $port = isset($cfg[1]) ? $cfg[1] : 11211;
-            $persistent = isset($cfg[2]) ? $cfg[2] : true;
-            $weight = isset($cfg[3]) ? $cfg[3] : 100;
-            $result = $this->memcache->addServer($host, $port, $persistent, $weight);
-            if (!$result) {
-                throw new CacheException("Error in addServer {$cfg[0]}.");
-            }
+        $this->memcached = new Memcached();
+        $result = $this->memcached->addServers($this->config['servers']);
+        if (!$result) {
+            throw new CacheException($this->memcached->getResultMessage(), $this->memcached->getResultCode());
         }
     }
 
     /**
-     * 析构时关闭 Memcache 连接
+     * 析构时关闭 Memcached 连接
      */
     public function __destruct()
     {
-        $this->memcache->close();
+        $this->memcached->quit();
     }
 
     /**
@@ -73,8 +68,8 @@ class MemcachePool extends PoolAbstract
         }
 
         $item = new Item($key);
-        $value = $this->memcache->get($key);
-        if ($value !== false) {
+        $value = $this->memcached->get($key);
+        if ($this->memcached->getResultCode() != Memcached::RES_NOTFOUND) {
             $item->set(unserialize($value));
             $item->setHit(true);
         }
@@ -87,7 +82,7 @@ class MemcachePool extends PoolAbstract
      */
     public function clear()
     {
-        return $this->memcache->flush();
+        return $this->memcached->flush();
     }
 
     /**
@@ -97,11 +92,11 @@ class MemcachePool extends PoolAbstract
      */
     public function deleteItem($key)
     {
-        if (!$this->hasItem($key)) {
+        $result = $this->memcached->delete($key);
+        if ($this->memcached->getResultCode() == Memcached::RES_NOTFOUND) {
             return true;
         }
-
-        return $this->memcache->delete($key);
+        return $result;
     }
 
     /**
@@ -117,6 +112,6 @@ class MemcachePool extends PoolAbstract
         if (is_null($expires)) {
             $expires = $this->config['expires'];
         }
-        return $this->memcache->set($key, $value, null, $expires);
+        return $this->memcached->set($key, $value, $expires);
     }
 }

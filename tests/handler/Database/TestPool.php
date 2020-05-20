@@ -1,11 +1,11 @@
 <?php
 
-namespace handler;
+namespace handler\Database;
 
-use fize\cache\handler\DatabasePool;
+use fize\cache\handler\Database\Pool;
 use PHPUnit\Framework\TestCase;
 
-class TestDatabasePool extends TestCase
+class TestPool extends TestCase
 {
 
     public function test__construct()
@@ -23,7 +23,7 @@ class TestDatabasePool extends TestCase
             ],
             'table' => 'sys_cache'
         ];
-        new DatabasePool($config);
+        new Pool($config);
         self::assertTrue(true);
     }
 
@@ -42,7 +42,7 @@ class TestDatabasePool extends TestCase
             ],
             'table' => 't_cache2'
         ];
-        DatabasePool::initMysql($config);
+        Pool::initMysql($config);
         self::assertTrue(true);
     }
 
@@ -61,7 +61,7 @@ class TestDatabasePool extends TestCase
             ],
             'table' => 't_cache'
         ];
-        $pool = new DatabasePool($config);
+        $pool = new Pool($config);
         $item = $pool->getItem('cfz');
         $item->set(['name' => '陈峰展']);
         $item->expiresAfter(10000);
@@ -84,7 +84,7 @@ class TestDatabasePool extends TestCase
             ],
             'table' => 't_cache'
         ];
-        $pool = new DatabasePool($config);
+        $pool = new Pool($config);
         $result = $pool->deleteItem('lyp');
         self::assertTrue($result);
         $result = $pool->deleteItem('unfound');
@@ -106,7 +106,7 @@ class TestDatabasePool extends TestCase
             ],
             'table' => 't_cache'
         ];
-        $pool = new DatabasePool($config);
+        $pool = new Pool($config);
         $result = $pool->clear();
         self::assertTrue($result);
     }
@@ -126,7 +126,7 @@ class TestDatabasePool extends TestCase
             ],
             'table' => 't_cache'
         ];
-        $pool = new DatabasePool($config);
+        $pool = new Pool($config);
         $item = $pool->getItem('cfz');
         var_dump($item);
         self::assertInstanceOf('Psr\Cache\CacheItemInterface', $item);

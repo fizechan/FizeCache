@@ -1,57 +1,59 @@
 <?php
 
-namespace fize\cache\handler;
+namespace fize\cache\handler\Memcache;
 
-use Redis;
+use Memcache;
 use Psr\Cache\CacheItemInterface;
 use fize\cache\CacheException;
 use fize\cache\Item;
 use fize\cache\PoolAbstract;
 
 /**
- * Redis形式缓存池
+ * 缓存池
  */
-class RedisPool extends PoolAbstract
+class Pool extends PoolAbstract
 {
 
     /**
-     * @var Redis Redis对象
+     * @var Memcache Memcache对象
      */
-    private $redis;
+    protected $memcache;
 
     /**
      * 构造
-     * @param array $config 初始化默认选项
+     * @param array $config 配置
      */
     public function __construct(array $config = [])
     {
         parent::__construct($config);
-
         $default_config = [
-            'host'    => '127.0.0.1',
-            'port'    => 6379,
-            'timeout' => 0,
+            'servers' => [
+                ['localhost', 11211, true, 100]
+            ],
             'expires' => null
         ];
-        $this->config = array_merge($default_config, $config);
-        $this->redis = new Redis();
-        $result = $this->redis->connect($this->config['host'], $this->config['port'], $this->config['timeout']);
-        if (!$result) {
-            throw new CacheException($this->redis->getLastError());
-        }
-        if (isset($this->config['password'])) {
-            $result = $this->redis->auth($this->config['password']);
+        $config = array_merge($default_config, $config);
+        $this->config = $config;
+
+        $this->memcache = new Memcache();
+        foreach ($this->config['servers'] as $cfg) {
+            $host = $cfg[0];
+            $port = isset($cfg[1]) ? $cfg[1] : 11211;
+            $persistent = isset($cfg[2]) ? $cfg[2] : true;
+            $weight = isset($cfg[3]) ? $cfg[3] : 100;
+            $result = $this->memcache->addServer($host, $port, $persistent, $weight);
             if (!$result) {
-                throw new CacheException($this->redis->getLastError());
+                throw new CacheException("Error in addServer {$cfg[0]}.");
             }
         }
-        if (isset($this->config['dbindex'])) {
-            $result = $this->redis->select($this->config['dbindex']);
-            if (!$result) {
-                throw new CacheException($this->redis->getLastError());
-            }
-        }
-        $this->redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_PHP);
+    }
+
+    /**
+     * 析构时关闭 Memcache 连接
+     */
+    public function __destruct()
+    {
+        $this->memcache->close();
     }
 
     /**
@@ -62,7 +64,6 @@ class RedisPool extends PoolAbstract
     public function getItem($key)
     {
         self::checkKey($key);
-
         if (isset($this->saveDeferredItems[$key])) {
             $item = $this->saveDeferredItems[$key];
             if ($item->checkHit()) {
@@ -72,9 +73,9 @@ class RedisPool extends PoolAbstract
         }
 
         $item = new Item($key);
-        $value = $this->redis->get($key);
+        $value = $this->memcache->get($key);
         if ($value !== false) {
-            $item->set($value);
+            $item->set(unserialize($value));
             $item->setHit(true);
         }
         return $item;
@@ -86,7 +87,7 @@ class RedisPool extends PoolAbstract
      */
     public function clear()
     {
-        return $this->redis->flushDB();
+        return $this->memcache->flush();
     }
 
     /**
@@ -96,8 +97,11 @@ class RedisPool extends PoolAbstract
      */
     public function deleteItem($key)
     {
-        $num = $this->redis->del($key);
-        return $num !== false;
+        if (!$this->hasItem($key)) {
+            return true;
+        }
+
+        return $this->memcache->delete($key);
     }
 
     /**
@@ -108,16 +112,11 @@ class RedisPool extends PoolAbstract
     public function save(CacheItemInterface $item)
     {
         $key = $item->getKey();
-        $value = $item->get();
+        $value = serialize($item->get());
         $expires = $item->getExpires();
         if (is_null($expires)) {
             $expires = $this->config['expires'];
         }
-        if ($expires) {
-            $result = $this->redis->set($key, $value, ['ex' => $expires]);
-        } else {
-            $result = $this->redis->set($key, $value);
-        }
-        return $result;
+        return $this->memcache->set($key, $value, null, $expires);
     }
 }

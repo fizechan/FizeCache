@@ -1,11 +1,11 @@
 <?php
 
-namespace handler;
+namespace handler\Redis;
 
-use fize\cache\handler\RedisCache;
+use fize\cache\handler\Redis\Cache;
 use PHPUnit\Framework\TestCase;
 
-class TestRedisCache extends TestCase
+class TestCache extends TestCase
 {
 
     public function test__construct()
@@ -17,7 +17,7 @@ class TestRedisCache extends TestCase
             'expires' => null,
             'dbindex' => 15
         ];
-        new RedisCache($config);
+        new Cache($config);
         self::assertTrue(true);
     }
 }

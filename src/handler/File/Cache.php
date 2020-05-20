@@ -1,7 +1,7 @@
 <?php
 
 
-namespace fize\cache\handler;
+namespace fize\cache\handler\File;
 
 use fize\cache\CacheAbstract;
 
@@ -9,7 +9,7 @@ use fize\cache\CacheAbstract;
 /**
  * 文件形式简易缓存
  */
-class FileCache extends CacheAbstract
+class Cache extends CacheAbstract
 {
 
     /**
@@ -19,6 +19,6 @@ class FileCache extends CacheAbstract
     public function __construct(array $config = [])
     {
         parent::__construct($config);
-        $this->pool = new FilePool($this->config);
+        $this->pool = new Pool($this->config);
     }
 }

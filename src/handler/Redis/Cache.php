@@ -1,13 +1,13 @@
 <?php
 
-namespace fize\cache\handler;
+namespace fize\cache\handler\Redis;
 
 use fize\cache\CacheAbstract;
 
 /**
- * 简易缓存
+ * Redis形式简易缓存
  */
-class MemcacheCache extends CacheAbstract
+class Cache extends CacheAbstract
 {
 
     /**
@@ -17,6 +17,6 @@ class MemcacheCache extends CacheAbstract
     public function __construct(array $config = [])
     {
         parent::__construct($config);
-        $this->pool = new MemcachePool($this->config);
+        $this->pool = new Pool($this->config);
     }
 }

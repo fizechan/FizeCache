@@ -1,11 +1,11 @@
 <?php
 
-namespace handler;
+namespace handler\Database;
 
-use fize\cache\handler\DatabaseCache;
+use fize\cache\handler\Database\Cache;
 use PHPUnit\Framework\TestCase;
 
-class TestDatabaseCache extends TestCase
+class TestCache extends TestCase
 {
 
     public function test__construct()
@@ -15,7 +15,8 @@ class TestDatabaseCache extends TestCase
                 'type'   => 'mysql',
                 'mode'   => 'pdo',
                 'config' => [
-                    'host'     => 'localhost',
+                    'host'     => '192.168.56.1',
+                    'port'     => 3306,
                     'user'     => 'root',
                     'password' => '123456',
                     'dbname'   => 'gm_test'
@@ -23,7 +24,7 @@ class TestDatabaseCache extends TestCase
             ],
             'table' => 'sys_cache'
         ];
-        new DatabaseCache($config);
+        new Cache($config);
         self::assertTrue(true);
     }
 }

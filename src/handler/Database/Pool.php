@@ -1,21 +1,21 @@
 <?php
 
-namespace fize\cache\handler;
+namespace fize\cache\handler\Database;
 
 use Psr\Cache\CacheItemInterface;
 use fize\db\Db;
-use fize\db\definition\Db as Driver;
+use fize\db\core\Db as Database;
 use fize\cache\Item;
 use fize\cache\PoolAbstract;
 
 /**
  * 数据库形式缓存池
  */
-class DatabasePool extends PoolAbstract
+class Pool extends PoolAbstract
 {
 
     /**
-     * @var Driver 使用的数据库驱动类对象
+     * @var Database 使用的数据库驱动类对象
      */
     protected $db;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace handler;
+namespace handler\Redis;
 
-use fize\cache\handler\RedisPool;
+use fize\cache\handler\Redis\Pool;
 use PHPUnit\Framework\TestCase;
 
-class TestRedisPool extends TestCase
+class TestPool extends TestCase
 {
 
     public function test__construct()
@@ -17,7 +17,7 @@ class TestRedisPool extends TestCase
             'expires' => null,
             'dbindex' => 15
         ];
-        new RedisPool($config);
+        new Pool($config);
         self::assertTrue(true);
     }
 
@@ -30,7 +30,7 @@ class TestRedisPool extends TestCase
             'expires' => null,
             'dbindex' => 15
         ];
-        $pool = new RedisPool($config);
+        $pool = new Pool($config);
         $item = $pool->getItem('cfz');
         $item->set(['name' => '陈峰展']);
         $item->expiresAfter(10000);
@@ -47,7 +47,7 @@ class TestRedisPool extends TestCase
             'expires' => null,
             'dbindex' => 15
         ];
-        $pool = new RedisPool($config);
+        $pool = new Pool($config);
         $result = $pool->deleteItem('lyp');
         self::assertTrue($result);
         $result = $pool->deleteItem('unfound');
@@ -63,7 +63,7 @@ class TestRedisPool extends TestCase
             'expires' => null,
             'dbindex' => 15
         ];
-        $pool = new RedisPool($config);
+        $pool = new Pool($config);
         $result = $pool->clear();
         self::assertTrue($result);
     }
@@ -77,7 +77,7 @@ class TestRedisPool extends TestCase
             'expires' => null,
             'dbindex' => 15
         ];
-        $pool = new RedisPool($config);
+        $pool = new Pool($config);
         $item = $pool->getItem('cfz');
         var_dump($item);
         var_dump($item->get());
