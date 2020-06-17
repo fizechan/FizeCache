@@ -11,7 +11,7 @@ class TestPool extends TestCase
     public function test__construct()
     {
         $config = [
-            'db'    => [
+            'database' => [
                 'type'   => 'mysql',
                 'mode'   => 'pdo',
                 'config' => [
@@ -21,7 +21,7 @@ class TestPool extends TestCase
                     'dbname'   => 'gm_test'
                 ]
             ],
-            'table' => 'sys_cache'
+            'table'    => 'sys_cache'
         ];
         new Pool($config);
         self::assertTrue(true);
@@ -30,7 +30,7 @@ class TestPool extends TestCase
     public function testInitMysql()
     {
         $config = [
-            'db'    => [
+            'database' => [
                 'type'   => 'mysql',
                 'mode'   => 'pdo',
                 'config' => [
@@ -40,16 +40,16 @@ class TestPool extends TestCase
                     'dbname'   => 'gm_test'
                 ]
             ],
-            'table' => 't_cache2'
+            'table'    => 't_cache2'
         ];
-        Pool::initMysql($config);
+        Pool::init($config);
         self::assertTrue(true);
     }
 
     public function testSave()
     {
         $config = [
-            'db'    => [
+            'database' => [
                 'type'   => 'mysql',
                 'mode'   => 'pdo',
                 'config' => [
@@ -59,7 +59,7 @@ class TestPool extends TestCase
                     'dbname'   => 'gm_test'
                 ]
             ],
-            'table' => 't_cache'
+            'table'    => 't_cache'
         ];
         $pool = new Pool($config);
         $item = $pool->getItem('cfz');
@@ -72,7 +72,7 @@ class TestPool extends TestCase
     public function testDeleteItem()
     {
         $config = [
-            'db'    => [
+            'database' => [
                 'type'   => 'mysql',
                 'mode'   => 'pdo',
                 'config' => [
@@ -82,7 +82,7 @@ class TestPool extends TestCase
                     'dbname'   => 'gm_test'
                 ]
             ],
-            'table' => 't_cache'
+            'table'    => 't_cache'
         ];
         $pool = new Pool($config);
         $result = $pool->deleteItem('lyp');
@@ -94,7 +94,7 @@ class TestPool extends TestCase
     public function testClear()
     {
         $config = [
-            'db'    => [
+            'database' => [
                 'type'   => 'mysql',
                 'mode'   => 'pdo',
                 'config' => [
@@ -104,7 +104,7 @@ class TestPool extends TestCase
                     'dbname'   => 'gm_test'
                 ]
             ],
-            'table' => 't_cache'
+            'table'    => 't_cache'
         ];
         $pool = new Pool($config);
         $result = $pool->clear();
@@ -114,7 +114,7 @@ class TestPool extends TestCase
     public function testGetItem()
     {
         $config = [
-            'db'    => [
+            'database' => [
                 'type'   => 'mysql',
                 'mode'   => 'pdo',
                 'config' => [
@@ -124,7 +124,7 @@ class TestPool extends TestCase
                     'dbname'   => 'gm_test'
                 ]
             ],
-            'table' => 't_cache'
+            'table'    => 't_cache'
         ];
         $pool = new Pool($config);
         $item = $pool->getItem('cfz');

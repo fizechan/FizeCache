@@ -19,11 +19,8 @@
     "psr/simple-cache": "~1.0.0"
   },
   "require-dev": {
-    "ext-memcache": "*",
-    "ext-memcached": "*",
-    "ext-redis": "*",
     "fize/crypt": "~3.2.0",
-    "fize/db": "~2.6.0",
+    "fize/database": "~3.0.0",
     "fize/io": "~3.7.0",
     "phpunit/phpunit": "~9.1.0"
   },
@@ -32,7 +29,7 @@
     "ext-memcached": "*",
     "ext-redis": "*",
     "fize/crypt": "~3.2.0",
-    "fize/db": "~2.6.0",
+    "fize/database": "~3.0.0",
     "fize/io": "~3.7.0"
   }
 }

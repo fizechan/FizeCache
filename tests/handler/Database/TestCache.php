@@ -11,7 +11,7 @@ class TestCache extends TestCase
     public function test__construct()
     {
         $config = [
-            'db'    => [
+            'database' => [
                 'type'   => 'mysql',
                 'mode'   => 'pdo',
                 'config' => [
@@ -22,7 +22,7 @@ class TestCache extends TestCase
                     'dbname'   => 'gm_test'
                 ]
             ],
-            'table' => 'sys_cache'
+            'table'    => 'sys_cache'
         ];
         new Cache($config);
         self::assertTrue(true);

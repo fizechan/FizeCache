@@ -2,9 +2,10 @@
 
 namespace fize\cache\handler\Database;
 
+use RuntimeException;
 use Psr\Cache\CacheItemInterface;
-use fize\db\Db;
-use fize\db\core\Db as Database;
+use fize\database\Db;
+use fize\database\core\Db as Database;
 use fize\cache\Item;
 use fize\cache\PoolAbstract;
 
@@ -32,8 +33,8 @@ class Pool extends PoolAbstract
         ];
         $config = array_merge($default_config, $config);
         $this->config = $config;
-        $db_mode = isset($config['db']['mode']) ? $config['db']['mode'] : null;
-        $this->db = Db::connect($config['db']['type'], $config['db']['config'], $db_mode);
+        $db_mode = isset($config['database']['mode']) ? $config['database']['mode'] : null;
+        $this->db = Db::connect($config['database']['type'], $config['database']['config'], $db_mode);
     }
 
     /**
@@ -129,22 +130,28 @@ class Pool extends PoolAbstract
     }
 
     /**
-     * 初始化，如果尚未建立 cache 表，可以运行该方法来建立表
+     * 初始化表
      *
-     * 适用于mysql
-     * @param array $config
+     * 如果尚未建立 cache 表，可以运行该方法来建立表
+     * @param array $config 配置
      */
-    public static function initMysql(array $config)
+    public static function init(array $config)
     {
-        $sql = <<<EOF
+        switch ($config['database']['type']) {
+            case 'mysql':
+                $sql = <<<SQL
 CREATE TABLE `{$config['table']}`  (
   `key` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '键名',
   `value` blob NULL DEFAULT NULL COMMENT '数据',
   `expires` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '有效时间，null表示永久有效。',
   PRIMARY KEY (`key`) USING BTREE
 ) ENGINE = MyISAM CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '缓存' ROW_FORMAT = Dynamic
-EOF;
-        $mode = isset($config['db']['mode']) ? $config['db']['mode'] : null;
-        Db::connect($config['db']['type'], $config['db']['config'], $mode)->query($sql);
+SQL;
+                break;
+            default:
+                throw new RuntimeException("暂不支持{$config['database']['type']}数据库驱动");
+        }
+        $mode = isset($config['database']['mode']) ? $config['database']['mode'] : null;
+        Db::connect($config['database']['type'], $config['database']['config'], $mode)->query($sql);
     }
 }
