@@ -2,11 +2,11 @@
 
 namespace fize\cache\handler\Memcache;
 
-use Memcache;
-use Psr\Cache\CacheItemInterface;
 use fize\cache\CacheException;
 use fize\cache\Item;
 use fize\cache\PoolAbstract;
+use Memcache;
+use Psr\Cache\CacheItemInterface;
 
 /**
  * 缓存池
@@ -38,9 +38,9 @@ class Pool extends PoolAbstract
         $this->memcache = new Memcache();
         foreach ($this->config['servers'] as $cfg) {
             $host = $cfg[0];
-            $port = isset($cfg[1]) ? $cfg[1] : 11211;
-            $persistent = isset($cfg[2]) ? $cfg[2] : true;
-            $weight = isset($cfg[3]) ? $cfg[3] : 100;
+            $port = $cfg[1] ?? 11211;
+            $persistent = $cfg[2] ?? true;
+            $weight = $cfg[3] ?? 100;
             $result = $this->memcache->addServer($host, $port, $persistent, $weight);
             if (!$result) {
                 throw new CacheException("Error in addServer {$cfg[0]}.");
@@ -85,7 +85,7 @@ class Pool extends PoolAbstract
      * 清空缓存池
      * @return bool
      */
-    public function clear()
+    public function clear(): bool
     {
         return $this->memcache->flush();
     }
@@ -95,7 +95,7 @@ class Pool extends PoolAbstract
      * @param string $key 键名
      * @return bool
      */
-    public function deleteItem($key)
+    public function deleteItem($key): bool
     {
         if (!$this->hasItem($key)) {
             return true;
@@ -109,7 +109,7 @@ class Pool extends PoolAbstract
      * @param CacheItemInterface $item 缓存对象
      * @return bool
      */
-    public function save(CacheItemInterface $item)
+    public function save(CacheItemInterface $item): bool
     {
         $key = $item->getKey();
         $value = serialize($item->get());

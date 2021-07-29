@@ -2,12 +2,12 @@
 
 namespace fize\cache\handler\Database;
 
-use RuntimeException;
-use Psr\Cache\CacheItemInterface;
-use fize\database\Db;
-use fize\database\core\Db as Database;
 use fize\cache\Item;
 use fize\cache\PoolAbstract;
+use fize\database\core\Db as Database;
+use fize\database\Db;
+use Psr\Cache\CacheItemInterface;
+use RuntimeException;
 
 /**
  * 数据库形式缓存池
@@ -33,7 +33,7 @@ class Pool extends PoolAbstract
         ];
         $config = array_merge($default_config, $config);
         $this->config = $config;
-        $db_mode = isset($config['database']['mode']) ? $config['database']['mode'] : null;
+        $db_mode = $config['database']['mode'] ?? null;
         $this->db = Db::connect($config['database']['type'], $config['database']['config'], $db_mode);
     }
 
@@ -78,7 +78,7 @@ class Pool extends PoolAbstract
      * 清空缓存池
      * @return bool
      */
-    public function clear()
+    public function clear(): bool
     {
         $this->db->table($this->config['table'])->delete();
         return true;
@@ -89,7 +89,7 @@ class Pool extends PoolAbstract
      * @param string $key 键名
      * @return bool
      */
-    public function deleteItem($key)
+    public function deleteItem($key): bool
     {
         self::checkKey($key);
         if (isset($this->saveDeferredItems[$key])) {
@@ -104,7 +104,7 @@ class Pool extends PoolAbstract
      * @param CacheItemInterface $item 缓存对象
      * @return bool
      */
-    public function save(CacheItemInterface $item)
+    public function save(CacheItemInterface $item): bool
     {
         $data = [
             'key'     => $item->getKey(),
@@ -151,7 +151,7 @@ SQL;
             default:
                 throw new RuntimeException("暂不支持{$config['database']['type']}数据库驱动");
         }
-        $mode = isset($config['database']['mode']) ? $config['database']['mode'] : null;
+        $mode = $config['database']['mode'] ?? null;
         Db::connect($config['database']['type'], $config['database']['config'], $mode)->query($sql);
     }
 }

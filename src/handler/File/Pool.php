@@ -2,13 +2,13 @@
 
 namespace fize\cache\handler\File;
 
-use Psr\Cache\CacheItemInterface;
-use fize\crypt\Base64;
-use fize\io\Directory;
-use fize\io\File;
 use fize\cache\CacheException;
 use fize\cache\Item;
 use fize\cache\PoolAbstract;
+use fize\crypt\Base64;
+use fize\io\Directory;
+use fize\io\File;
+use Psr\Cache\CacheItemInterface;
 
 /**
  * 文件形式缓存池
@@ -63,7 +63,7 @@ class Pool extends PoolAbstract
             $fso = new File($file);
             $data = unserialize($fso->getContents());
             if (!$data || !array_key_exists('expires', $data) || !array_key_exists('value', $data)) {
-                throw new CacheException("An error occurred while fetching the cache [{$key}]");
+                throw new CacheException("An error occurred while fetching the cache [$key]");
             }
             $item->set($data['value']);
             $item->expiresAt($data['expires']);
@@ -78,10 +78,11 @@ class Pool extends PoolAbstract
      * 清空缓存池
      * @return bool
      */
-    public function clear()
+    public function clear(): bool
     {
         $this->saveDeferredItems = [];
-        return Directory::clearDirectory($this->config['path']);
+        $dir = new Directory($this->config['path']);
+        return $dir->clear();
     }
 
     /**
@@ -89,7 +90,7 @@ class Pool extends PoolAbstract
      * @param string $key 键名
      * @return bool
      */
-    public function deleteItem($key)
+    public function deleteItem($key): bool
     {
         self::checkKey($key);
         if (isset($this->saveDeferredItems[$key])) {
@@ -109,7 +110,7 @@ class Pool extends PoolAbstract
      * @param CacheItemInterface $item 缓存对象
      * @return bool
      */
-    public function save(CacheItemInterface $item)
+    public function save(CacheItemInterface $item): bool
     {
         /**
          * @var Item $item
@@ -123,7 +124,6 @@ class Pool extends PoolAbstract
 
         $fso = new File($file, 'w');
         $result = $fso->putContents(serialize($data));
-        $fso->close();
         return $result !== false;
     }
 
@@ -131,7 +131,7 @@ class Pool extends PoolAbstract
      * 删除过期项
      * @param string|null $path 指定缓存文件夹，null 表示默认设置
      */
-    protected function deleteExpiredItems($path = null)
+    protected function deleteExpiredItems(string $path = null)
     {
         if (is_null($path)) {
             $path = $this->config['path'];
@@ -141,7 +141,7 @@ class Pool extends PoolAbstract
         $dir->read(function ($item) use ($path) {
             $full_path = $path . "/" . $item;
 
-            if (Directory::isDir($full_path)) {
+            if (Directory::exists($full_path)) {
                 $this->deleteExpiredItems($full_path);
                 return;
             }

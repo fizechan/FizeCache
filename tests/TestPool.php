@@ -3,6 +3,7 @@
 
 use fize\cache\Pool;
 use PHPUnit\Framework\TestCase;
+use Psr\Cache\CacheItemInterface;
 
 class TestPool extends TestCase
 {
@@ -31,7 +32,7 @@ class TestPool extends TestCase
     {
         $item = Pool::getItem('cfz');
         var_dump($item);
-        self::assertInstanceOf('Psr\Cache\CacheItemInterface', $item);
+        self::assertInstanceOf(CacheItemInterface::class, $item);
     }
 
     public function testGetItems()

@@ -23,5 +23,5 @@ interface PoolInterface extends CacheItemPoolInterface
      * @param CacheItemInterface[] $items
      * @return bool
      */
-    public function saveItems(array $items);
+    public function saveItems(array $items): bool;
 }

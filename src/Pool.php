@@ -22,7 +22,7 @@ class Pool
      * @param string $handler 使用的实际接口名称
      * @param array  $config  配置项
      */
-    public function __construct($handler, array $config = [])
+    public function __construct(string $handler, array $config = [])
     {
         self::$handler = PoolFactory::create($handler, $config);
     }
@@ -32,7 +32,7 @@ class Pool
      * @param string $key 键名
      * @return CacheItemInterface
      */
-    public static function getItem($key)
+    public static function getItem(string $key): CacheItemInterface
     {
         return self::$handler->getItem($key);
     }
@@ -42,7 +42,7 @@ class Pool
      * @param array $keys 键名组成的数组
      * @return CacheItemInterface[]
      */
-    public static function getItems(array $keys = [])
+    public static function getItems(array $keys = []): array
     {
         return self::$handler->getItems($keys);
     }
@@ -52,7 +52,7 @@ class Pool
      * @param string $key 键名
      * @return bool
      */
-    public static function hasItem($key)
+    public static function hasItem(string $key): bool
     {
         return self::$handler->hasItem($key);
     }
@@ -61,7 +61,7 @@ class Pool
      * 清空缓存池
      * @return bool
      */
-    public static function clear()
+    public static function clear(): bool
     {
         return self::$handler->clear();
     }
@@ -71,7 +71,7 @@ class Pool
      * @param string $key 键名
      * @return bool
      */
-    public static function deleteItem($key)
+    public static function deleteItem(string $key): bool
     {
         return self::$handler->deleteItem($key);
     }
@@ -81,7 +81,7 @@ class Pool
      * @param array $keys 键名组成的数组
      * @return bool
      */
-    public static function deleteItems(array $keys)
+    public static function deleteItems(array $keys): bool
     {
         return self::$handler->deleteItems($keys);
     }
@@ -91,7 +91,7 @@ class Pool
      * @param CacheItemInterface $item 缓存对象
      * @return bool
      */
-    public static function save(CacheItemInterface $item)
+    public static function save(CacheItemInterface $item): bool
     {
         return self::$handler->save($item);
     }
@@ -101,7 +101,7 @@ class Pool
      * @param CacheItemInterface $item
      * @return bool
      */
-    public static function saveDeferred(CacheItemInterface $item)
+    public static function saveDeferred(CacheItemInterface $item): bool
     {
         return self::$handler->saveDeferred($item);
     }
@@ -110,7 +110,7 @@ class Pool
      * 提交所有的正在队列里等待的请求到数据持久层
      * @return bool
      */
-    public static function commit()
+    public static function commit(): bool
     {
         return self::$handler->commit();
     }
@@ -120,7 +120,7 @@ class Pool
      * @param CacheItemInterface[] $items
      * @return bool
      */
-    public static function saveItems(array $items)
+    public static function saveItems(array $items): bool
     {
         return self::$handler->saveItems($items);
     }

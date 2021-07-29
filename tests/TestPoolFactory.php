@@ -2,6 +2,7 @@
 
 
 use fize\cache\PoolFactory;
+use fize\cache\PoolInterface;
 use PHPUnit\Framework\TestCase;
 
 class TestPoolFactory extends TestCase
@@ -13,6 +14,6 @@ class TestPoolFactory extends TestCase
             'path' => __DIR__ . '/../temp',
         ];
         $pool = PoolFactory::create('File', $config);
-        self::assertInstanceOf('fize\cache\PoolInterface', $pool);
+        self::assertInstanceOf(PoolInterface::class, $pool);
     }
 }

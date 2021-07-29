@@ -2,11 +2,11 @@
 
 namespace fize\cache\handler\Redis;
 
-use Redis;
-use Psr\Cache\CacheItemInterface;
 use fize\cache\CacheException;
 use fize\cache\Item;
 use fize\cache\PoolAbstract;
+use Psr\Cache\CacheItemInterface;
+use Redis;
 
 /**
  * Redis形式缓存池
@@ -84,7 +84,7 @@ class Pool extends PoolAbstract
      * 清空缓存池
      * @return bool
      */
-    public function clear()
+    public function clear(): bool
     {
         return $this->redis->flushDB();
     }
@@ -94,7 +94,7 @@ class Pool extends PoolAbstract
      * @param string $key 键名
      * @return bool
      */
-    public function deleteItem($key)
+    public function deleteItem($key): bool
     {
         $num = $this->redis->del($key);
         return $num !== false;
@@ -105,7 +105,7 @@ class Pool extends PoolAbstract
      * @param CacheItemInterface $item 缓存对象
      * @return bool
      */
-    public function save(CacheItemInterface $item)
+    public function save(CacheItemInterface $item): bool
     {
         $key = $item->getKey();
         $value = $item->get();

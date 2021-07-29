@@ -2,11 +2,11 @@
 
 namespace fize\cache\handler\Memcached;
 
-use Memcached;
-use Psr\Cache\CacheItemInterface;
 use fize\cache\CacheException;
 use fize\cache\Item;
 use fize\cache\PoolAbstract;
+use Memcached;
+use Psr\Cache\CacheItemInterface;
 
 /**
  * 缓存池
@@ -80,7 +80,7 @@ class Pool extends PoolAbstract
      * 清空缓存池
      * @return bool
      */
-    public function clear()
+    public function clear(): bool
     {
         return $this->memcached->flush();
     }
@@ -90,7 +90,7 @@ class Pool extends PoolAbstract
      * @param string $key 键名
      * @return bool
      */
-    public function deleteItem($key)
+    public function deleteItem($key): bool
     {
         $result = $this->memcached->delete($key);
         if ($this->memcached->getResultCode() == Memcached::RES_NOTFOUND) {
@@ -104,7 +104,7 @@ class Pool extends PoolAbstract
      * @param CacheItemInterface $item 缓存对象
      * @return bool
      */
-    public function save(CacheItemInterface $item)
+    public function save(CacheItemInterface $item): bool
     {
         $key = $item->getKey();
         $value = serialize($item->get());

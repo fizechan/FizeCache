@@ -52,7 +52,7 @@ abstract class CacheAbstract implements CacheInterface
      * @param DateInterval|int|null $ttl   以秒为单位的过期时长
      * @return bool
      */
-    public function set($key, $value, $ttl = null)
+    public function set($key, $value, $ttl = null): bool
     {
         $item = new Item($key);
         $item->set($value);
@@ -65,7 +65,7 @@ abstract class CacheAbstract implements CacheInterface
      * @param string $key 键名
      * @return bool
      */
-    public function delete($key)
+    public function delete($key): bool
     {
         return $this->pool->deleteItem($key);
     }
@@ -74,7 +74,7 @@ abstract class CacheAbstract implements CacheInterface
      * 清除所有缓存
      * @return bool
      */
-    public function clear()
+    public function clear(): bool
     {
         return $this->pool->clear();
     }
@@ -108,7 +108,7 @@ abstract class CacheAbstract implements CacheInterface
      * @param DateInterval|int|null $ttl    以秒为单位的过期时长
      * @return bool
      */
-    public function setMultiple($values, $ttl = null)
+    public function setMultiple($values, $ttl = null): bool
     {
         foreach ($values as $key => $value) {
             $result = $this->set($key, $value, $ttl);
@@ -124,7 +124,7 @@ abstract class CacheAbstract implements CacheInterface
      * @param iterable $keys 键名数组
      * @return bool
      */
-    public function deleteMultiple($keys)
+    public function deleteMultiple($keys): bool
     {
         if ($keys instanceof Traversable) {
             $keys = iterator_to_array($keys);
@@ -137,7 +137,7 @@ abstract class CacheAbstract implements CacheInterface
      * @param string $key 键名
      * @return bool
      */
-    public function has($key)
+    public function has($key): bool
     {
         return $this->pool->hasItem($key);
     }

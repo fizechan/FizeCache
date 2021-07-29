@@ -13,7 +13,7 @@ class PoolFactory
      * @param array  $config  配置
      * @return PoolInterface
      */
-    public static function create($handler, array $config = [])
+    public static function create(string $handler, array $config = []): PoolInterface
     {
         $class = '\\' . __NAMESPACE__ . '\\handler\\' . $handler . '\\Pool';
         return new $class($config);

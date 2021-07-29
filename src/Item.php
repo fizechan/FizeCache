@@ -40,7 +40,7 @@ class Item implements ItemInterface
      * @param string $key 键名
      * @internal 禁止擅自初始化「Item」对象
      */
-    public function __construct($key)
+    public function __construct(string $key)
     {
         $this->key = $key;
     }
@@ -49,7 +49,7 @@ class Item implements ItemInterface
      * 获取键名
      * @return string
      */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
@@ -58,7 +58,7 @@ class Item implements ItemInterface
      * 是否命中
      * @return bool
      */
-    public function isHit()
+    public function isHit(): bool
     {
         return $this->isHit;
     }
@@ -75,9 +75,9 @@ class Item implements ItemInterface
     /**
      * 设置值
      * @param mixed $value 值
-     * @return $this
+     * @return static
      */
-    public function set($value)
+    public function set($value): Item
     {
         $this->value = $value;
         return $this;
@@ -91,7 +91,7 @@ class Item implements ItemInterface
      * @param DateTimeInterface|null $expiration 过期时间点
      * @return $this
      */
-    public function expiresAt($expiration)
+    public function expiresAt($expiration): Item
     {
         if ($expiration instanceof DateTimeInterface) {
             $expiration = $expiration->getTimestamp();
@@ -105,7 +105,7 @@ class Item implements ItemInterface
      * @param DateInterval|int|null $time 以秒为单位的过期时长
      * @return $this
      */
-    public function expiresAfter($time)
+    public function expiresAfter($time): self
     {
         if ($time instanceof DateInterval) {
             $expires = (new DateTime())->add($time)->getTimestamp();
@@ -120,16 +120,12 @@ class Item implements ItemInterface
 
     /**
      * 设置是否命中
-     *
-     * 外部不应直接调用该方法
      * @param bool $is_hit 是否命中
-     * @return $this
      * @internal 外部不应直接调用该方法
      */
-    public function setHit($is_hit)
+    public function setHit(bool $is_hit)
     {
         $this->isHit = $is_hit;
-        return $this;
     }
 
     /**
@@ -137,7 +133,7 @@ class Item implements ItemInterface
      * @return int|null 返回 null 表示永不过期
      * @internal 外部不应直接调用该方法
      */
-    public function getExpires()
+    public function getExpires(): ?int
     {
         return $this->expires;
     }
@@ -147,7 +143,7 @@ class Item implements ItemInterface
      * @return bool
      * @internal 外部不应直接调用该方法
      */
-    public function checkHit()
+    public function checkHit(): bool
     {
         if (is_null($this->expires)) {
             return true;

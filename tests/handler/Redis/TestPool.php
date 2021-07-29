@@ -4,6 +4,7 @@ namespace handler\Redis;
 
 use fize\cache\handler\Redis\Pool;
 use PHPUnit\Framework\TestCase;
+use Psr\Cache\CacheItemInterface;
 
 class TestPool extends TestCase
 {
@@ -82,6 +83,6 @@ class TestPool extends TestCase
         var_dump($item);
         var_dump($item->get());
         print_r($item->get());
-        self::assertInstanceOf('Psr\Cache\CacheItemInterface', $item);
+        self::assertInstanceOf(CacheItemInterface::class, $item);
     }
 }

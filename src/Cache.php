@@ -21,7 +21,7 @@ class Cache
      * @param string $handler 使用的实际接口名称
      * @param array  $config  配置项
      */
-    public function __construct($handler, array $config = [])
+    public function __construct(string $handler, array $config = [])
     {
         self::$handler = CacheFactory::create($handler, $config);
     }
@@ -32,7 +32,7 @@ class Cache
      * @param mixed  $default 默认值
      * @return mixed
      */
-    public static function get($key, $default = null)
+    public static function get(string $key, $default = null)
     {
         return self::$handler->get($key, $default);
     }
@@ -44,7 +44,7 @@ class Cache
      * @param DateInterval|int|null $ttl   以秒为单位的过期时长
      * @return bool
      */
-    public static function set($key, $value, $ttl = null)
+    public static function set(string $key, $value, $ttl = null): bool
     {
         return self::$handler->set($key, $value, $ttl);
     }
@@ -54,7 +54,7 @@ class Cache
      * @param string $key 键名
      * @return bool
      */
-    public static function delete($key)
+    public static function delete(string $key): bool
     {
         return self::$handler->delete($key);
     }
@@ -63,7 +63,7 @@ class Cache
      * 清空所有缓存
      * @return bool
      */
-    public static function clear()
+    public static function clear(): bool
     {
         return self::$handler->clear();
     }
@@ -74,7 +74,7 @@ class Cache
      * @param mixed    $default 默认值
      * @return iterable
      */
-    public static function getMultiple($keys, $default = null)
+    public static function getMultiple(iterable $keys, $default = null): iterable
     {
         return self::$handler->getMultiple($keys, $default);
     }
@@ -85,7 +85,7 @@ class Cache
      * @param DateInterval|int|null $ttl    以秒为单位的过期时长
      * @return bool
      */
-    public static function setMultiple($values, $ttl = null)
+    public static function setMultiple(iterable $values, $ttl = null): bool
     {
         return self::$handler->setMultiple($values, $ttl);
     }
@@ -95,7 +95,7 @@ class Cache
      * @param iterable $keys 键名数组
      * @return bool
      */
-    public static function deleteMultiple($keys)
+    public static function deleteMultiple(iterable $keys): bool
     {
         return self::$handler->deleteMultiple($keys);
     }
@@ -105,7 +105,7 @@ class Cache
      * @param string $key 键名
      * @return bool
      */
-    public static function has($key)
+    public static function has(string $key): bool
     {
         return self::$handler->has($key);
     }

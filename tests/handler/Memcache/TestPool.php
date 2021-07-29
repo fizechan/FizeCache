@@ -4,7 +4,7 @@ namespace handler\Memcache;
 
 use fize\cache\handler\Memcache\Pool;
 use PHPUnit\Framework\TestCase;
-
+use Psr\Cache\CacheItemInterface;
 
 class TestPool extends TestCase
 {
@@ -28,7 +28,7 @@ class TestPool extends TestCase
         $item = $pool->getItem('cfz');
         var_dump($item);
         var_dump($item->get());
-        self::assertInstanceOf('Psr\Cache\CacheItemInterface', $item);
+        self::assertInstanceOf(CacheItemInterface::class, $item);
     }
 
     public function testClear()

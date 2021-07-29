@@ -2,9 +2,9 @@
 
 namespace fize\cache;
 
-use RuntimeException;
 use Psr\Cache\CacheException as BaseInterface;
 use Psr\SimpleCache\CacheException as SimpleBaseInterface;
+use RuntimeException;
 
 /**
  * 缓存异常

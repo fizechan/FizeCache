@@ -33,7 +33,7 @@ abstract class PoolAbstract implements PoolInterface
      * @param string $key 键名
      * @return bool
      */
-    public function hasItem($key)
+    public function hasItem($key): bool
     {
         $item = $this->getItem($key);
         return $item->isHit();
@@ -44,7 +44,7 @@ abstract class PoolAbstract implements PoolInterface
      * @param array $keys 键名组成的数组
      * @return CacheItemInterface[]
      */
-    public function getItems(array $keys = [])
+    public function getItems(array $keys = []): array
     {
         $items = [];
         foreach ($keys as $key) {
@@ -58,7 +58,7 @@ abstract class PoolAbstract implements PoolInterface
      * @param array $keys 键名组成的数组
      * @return bool
      */
-    public function deleteItems(array $keys)
+    public function deleteItems(array $keys): bool
     {
         foreach ($keys as $key) {
             $result = $this->deleteItem($key);
@@ -74,7 +74,7 @@ abstract class PoolAbstract implements PoolInterface
      * @param CacheItemInterface[] $items
      * @return bool
      */
-    public function saveItems(array $items)
+    public function saveItems(array $items): bool
     {
         foreach ($items as $item) {
             $result = $this->save($item);
@@ -90,7 +90,7 @@ abstract class PoolAbstract implements PoolInterface
      * @param CacheItemInterface $item
      * @return bool
      */
-    public function saveDeferred(CacheItemInterface $item)
+    public function saveDeferred(CacheItemInterface $item): bool
     {
         $this->saveDeferredItems[$item->getKey()] = $item;
         return true;
@@ -100,9 +100,9 @@ abstract class PoolAbstract implements PoolInterface
      * 提交所有的正在队列里等待的请求到数据持久层
      * @return bool
      */
-    public function commit()
+    public function commit(): bool
     {
-        foreach ($this->saveDeferredItems as $key => $item) {
+        foreach ($this->saveDeferredItems as $item) {
             $result = $this->save($item);
             if ($result === false) {
                 return false;
@@ -116,7 +116,7 @@ abstract class PoolAbstract implements PoolInterface
      * 检测键名是否符合要求
      * @param string $key 键名
      */
-    protected static function checkKey($key)
+    protected static function checkKey(string $key)
     {
         $reserverd_words = ['{', '}', '(', ')', '/', '\\', '@', ':'];
         foreach ($reserverd_words as $reserverd_word) {

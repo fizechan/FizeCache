@@ -17,28 +17,27 @@ interface ItemInterface extends CacheItemInterface
      * @param string $key 键名
      * @internal 禁止擅自初始化「Item」对象
      */
-    public function __construct($key);
+    public function __construct(string $key);
 
     /**
      * 设置是否命中
      *
      * @param bool $is_hit 是否命中
-     * @return $this
      * @internal 外部不应直接调用该方法
      */
-    public function setHit($is_hit);
+    public function setHit(bool $is_hit);
 
     /**
      * 获取缓存项的过期时间戳
      * @return int|null 返回 null 表示永不过期
      * @internal 外部不应直接调用该方法
      */
-    public function getExpires();
+    public function getExpires(): ?int;
 
     /**
      * 根据设置判断缓存是否有效
      * @return bool
      * @internal 外部不应直接调用该方法
      */
-    public function checkHit();
+    public function checkHit(): bool;
 }
