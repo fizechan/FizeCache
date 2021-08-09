@@ -1,9 +1,7 @@
 <?php
-require_once "../vendor/autoload.php";
+require_once "../../vendor/autoload.php";
 
 use fize\cache\Cache;
-
-//使用 Cache 静态方法前必须先 Cache 初始化
 
 $config = [
     'host'    => '192.168.56.101',
@@ -14,4 +12,4 @@ $config = [
 ];
 new Cache('Redis', $config);
 
-//可以开始使用 Cache 静态方法
+Cache::clear();  //cache 被清空

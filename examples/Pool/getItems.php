@@ -1,5 +1,5 @@
 <?php
-require_once "../vendor/autoload.php";
+require_once "../../vendor/autoload.php";
 
 use fize\cache\Pool;
 
@@ -14,4 +14,3 @@ foreach ($items as $key => $item) {
     var_dump($key);
     var_dump($item->get());
 }
-Pool::save($item);

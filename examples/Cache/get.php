@@ -1,5 +1,5 @@
 <?php
-require_once "../vendor/autoload.php";
+require_once "../../vendor/autoload.php";
 
 use fize\cache\Cache;
 
@@ -12,10 +12,10 @@ $config = [
 ];
 new Cache('Redis', $config);
 
-Cache::set('cfz', '我想在里面填什么都可以', 100);
+Cache::set('cfz', 'hello world!');
 $cache1 = Cache::get('cfz');
-var_dump($cache1);
+var_dump($cache1);  //hello world!
 
-Cache::set('cfz2', '我想在里面填什么都可以2');
+Cache::delete('cfz2');
 $cache2 = Cache::get('cfz2');
-var_dump($cache2);
+var_dump($cache2);  //null

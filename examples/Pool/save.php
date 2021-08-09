@@ -1,5 +1,5 @@
 <?php
-require_once "../vendor/autoload.php";
+require_once "../../vendor/autoload.php";
 
 use fize\cache\Pool;
 
@@ -11,4 +11,5 @@ new Pool($handler, $config);
 
 $item = Pool::getItem('key');
 $item->set('value to save');
-Pool::save($item);
+$result = Pool::save($item);
+var_dump($result);

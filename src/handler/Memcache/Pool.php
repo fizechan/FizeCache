@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpComposerExtensionStubsInspection */
 
 namespace fize\cache\handler\Memcache;
 
@@ -43,7 +43,7 @@ class Pool extends PoolAbstract
             $weight = $cfg[3] ?? 100;
             $result = $this->memcache->addServer($host, $port, $persistent, $weight);
             if (!$result) {
-                throw new CacheException("Error in addServer {$cfg[0]}.");
+                throw new CacheException("Error in addServer $cfg[0].");
             }
         }
     }
