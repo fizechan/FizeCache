@@ -1,6 +1,6 @@
 <?php
 
-namespace fize\cache;
+namespace Fize\Cache;
 
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;

@@ -1,7 +1,8 @@
 <?php
 
+namespace Tests;
 
-use fize\cache\Pool;
+use Fize\Cache\Pool;
 use PHPUnit\Framework\TestCase;
 use Psr\Cache\CacheItemInterface;
 

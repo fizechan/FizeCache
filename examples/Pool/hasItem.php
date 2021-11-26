@@ -1,7 +1,7 @@
 <?php
 require_once "../../vendor/autoload.php";
 
-use fize\cache\Pool;
+use Fize\Cache\Pool;
 
 $handler = 'File';
 $config = [

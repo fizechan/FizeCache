@@ -1,8 +1,9 @@
 <?php
 
+namespace Tests;
 
-use fize\cache\PoolFactory;
-use fize\cache\PoolInterface;
+use Fize\Cache\PoolFactory;
+use Fize\Cache\PoolInterface;
 use PHPUnit\Framework\TestCase;
 
 class TestPoolFactory extends TestCase

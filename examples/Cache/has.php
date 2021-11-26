@@ -1,7 +1,7 @@
 <?php
 require_once "../../vendor/autoload.php";
 
-use fize\cache\Cache;
+use Fize\Cache\Cache;
 
 $config = [
     'host'    => '192.168.56.101',

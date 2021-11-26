@@ -1,7 +1,7 @@
 <?php
 require_once "../../vendor/autoload.php";
 
-use fize\cache\Pool;
+use Fize\Cache\Pool;
 
 //使用 Pool 静态方法前必须先 Pool 初始化
 

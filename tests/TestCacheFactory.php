@@ -1,8 +1,9 @@
 <?php
 
+namespace Tests;
 
-use fize\cache\CacheFactory;
-use fize\cache\CacheInterface;
+use Fize\Cache\CacheFactory;
+use Fize\Cache\CacheInterface;
 use PHPUnit\Framework\TestCase;
 
 class TestCacheFactory extends TestCase

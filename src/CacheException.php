@@ -1,6 +1,6 @@
 <?php
 
-namespace fize\cache;
+namespace Fize\Cache;
 
 use Psr\Cache\CacheException as BaseInterface;
 use Psr\SimpleCache\CacheException as SimpleBaseInterface;

@@ -1,7 +1,7 @@
 <?php
 require_once "../../vendor/autoload.php";
 
-use fize\cache\CacheFactory;
+use Fize\Cache\CacheFactory;
 
 $cache = CacheFactory::create('File');
 

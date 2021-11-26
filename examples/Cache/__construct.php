@@ -1,7 +1,7 @@
 <?php
 require_once "../../vendor/autoload.php";
 
-use fize\cache\Cache;
+use Fize\Cache\Cache;
 
 //使用 Cache 静态方法前必须先 Cache 初始化
 

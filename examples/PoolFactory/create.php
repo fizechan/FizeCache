@@ -1,7 +1,7 @@
 <?php
 require_once "../../vendor/autoload.php";
 
-use fize\cache\PoolFactory;
+use Fize\Cache\PoolFactory;
 
 $pool = PoolFactory::create('File');
 

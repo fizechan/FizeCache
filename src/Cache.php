@@ -1,6 +1,6 @@
 <?php
 
-namespace fize\cache;
+namespace Fize\Cache;
 
 use DateInterval;
 
