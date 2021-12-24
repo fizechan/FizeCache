@@ -24,7 +24,7 @@
     "ext-redis": "*",
     "fize/crypt": "^4.0.0",
     "fize/database": "^4.0.0",
-    "fize/io": "^6.0.0"
+    "fize/io": "^7.0.0"
   },
   "autoload-dev": {
     "psr-4": {
@@ -34,7 +34,7 @@
   "require-dev": {
     "fize/crypt": "^4.0.0",
     "fize/database": "^4.0.0",
-    "fize/io": "^6.0.0",
+    "fize/io": "^7.0.0",
     "phpunit/phpunit": "^9.5.0"
   }
 }
