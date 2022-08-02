@@ -5,7 +5,7 @@ namespace Fize\Cache\Handler\File;
 use Fize\Cache\CacheException;
 use Fize\Cache\Item;
 use Fize\Cache\PoolAbstract;
-use Fize\Crypt\Base64;
+use Fize\Codec\Base64;
 use Fize\IO\Directory;
 use Fize\IO\File;
 use Psr\Cache\CacheItemInterface;
