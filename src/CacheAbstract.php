@@ -141,4 +141,12 @@ abstract class CacheAbstract implements CacheInterface
     {
         return $this->pool->hasItem($key);
     }
+
+    /**
+     * GC。清除过期的缓存。
+     */
+    public function gc()
+    {
+        $this->pool->gc();
+    }
 }

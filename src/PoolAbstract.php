@@ -113,6 +113,13 @@ abstract class PoolAbstract implements PoolInterface
     }
 
     /**
+     * GC。清除过期的缓存。
+     */
+    public function gc()
+    {
+    }
+
+    /**
      * 检测键名是否符合要求
      * @param string $key 键名
      */

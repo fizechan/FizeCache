@@ -12,17 +12,14 @@ class TestCache extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         $handler = 'File';
-        $config = [
-            'path' => __DIR__ . '/../temp',
-        ];
-        new Cache($handler, $config);
+        new Cache($handler);
     }
 
     public function test__construct()
     {
         $handler = 'File';
         $config = [
-            'path' => __DIR__ . '/../temp',
+            'path' => dirname(__DIR__) . '/data/cache',
         ];
         new Cache($handler, $config);
         self::assertTrue(true);
@@ -104,5 +101,11 @@ class TestCache extends TestCase
         $has2 = Cache::has('cfz1');
         var_dump($has2);
         self::assertTrue($has2);
+    }
+
+    public function testGc()
+    {
+        Cache::gc();
+        self::assertTrue(true);
     }
 }

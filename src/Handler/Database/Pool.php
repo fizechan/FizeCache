@@ -38,14 +38,6 @@ class Pool extends PoolAbstract
     }
 
     /**
-     * 析构时删除过期项
-     */
-    public function __destruct()
-    {
-        $this->deleteExpiredItems();
-    }
-
-    /**
      * 获取缓存项
      * @param string $key 键名
      * @return CacheItemInterface
@@ -122,9 +114,9 @@ class Pool extends PoolAbstract
     }
 
     /**
-     * 删除过期项
+     * GC，清除过期项。
      */
-    protected function deleteExpiredItems()
+    public function gc()
     {
         $this->db->table($this->config['table'])->where(['expires' => ['<', time()]])->delete();
     }
@@ -137,7 +129,8 @@ class Pool extends PoolAbstract
      */
     public static function init(array $config)
     {
-        switch ($config['database']['type']) {
+        $db_type = $config['database']['type'];
+        switch (strtolower($db_type)) {
             case 'mysql':
                 $sql = <<<SQL
 CREATE TABLE `{$config['table']}`  (
@@ -147,6 +140,17 @@ CREATE TABLE `{$config['table']}`  (
   PRIMARY KEY (`key`) USING BTREE
 ) ENGINE = MyISAM CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '缓存' ROW_FORMAT = Dynamic
 SQL;
+                break;
+            case 'sqlite':
+                $sql = <<<SQL
+CREATE TABLE `{$config['table']}`  (
+  `key` varchar(100) NOT NULL COMMENT '键名',
+  `value` blob NULL DEFAULT NULL COMMENT '数据',
+  `expires` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '有效时间，null表示永久有效。',
+  PRIMARY KEY (`key`) USING BTREE
+)
+SQL;
+                // @todo 创建数据库文件。
                 break;
             default:
                 throw new RuntimeException("暂不支持{$config['database']['type']}数据库驱动");

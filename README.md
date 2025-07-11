@@ -4,6 +4,8 @@
 # FizeCache
 一个易于扩展的缓存类库
 
+FizeCahe 是一个 PSR-6 、PSR-16 缓存接口规范的实现，支持多种处理器。
+
 FizeCache 是一个易于扩展的缓存类库。
 
 FizeCache 允许您将缓存存放在任意的位置，无论是数据库、文件、Memcached 还是 Redis。

@@ -13,7 +13,6 @@ class TestCacheFactory extends TestCase
     {
         $cache = CacheFactory::create('File');
         var_dump($cache);
-
         self::assertInstanceOf(CacheInterface::class, $cache);
     }
 }

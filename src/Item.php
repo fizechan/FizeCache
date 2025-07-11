@@ -133,7 +133,7 @@ class Item implements ItemInterface
      * @return int|null 返回 null 表示永不过期
      * @internal 外部不应直接调用该方法
      */
-    public function getExpires(): ?int
+    public function getExpires()
     {
         return $this->expires;
     }

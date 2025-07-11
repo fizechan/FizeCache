@@ -5,7 +5,6 @@ namespace Fize\Cache\Handler\File;
 use Fize\Cache\CacheException;
 use Fize\Cache\Item;
 use Fize\Cache\PoolAbstract;
-use Fize\Codec\Base64;
 use Fize\IO\Directory;
 use Fize\IO\File;
 use Psr\Cache\CacheItemInterface;
@@ -26,18 +25,10 @@ class Pool extends PoolAbstract
     {
         parent::__construct($config);
         $default_config = [
-            'path'    => './data/cache',
+            'path'    => dirname(__DIR__, 3) . '/data',
             'expires' => null,
         ];
         $this->config = array_merge($default_config, $config);
-    }
-
-    /**
-     * 析构时删除过期项
-     */
-    public function __destruct()
-    {
-        $this->deleteExpiredItems();
     }
 
     /**
@@ -57,8 +48,8 @@ class Pool extends PoolAbstract
         }
 
         $item = new Item($key);
-        $base64_key = Base64::encode($key);
-        $file = $this->config['path'] . "/" . strtolower(substr($base64_key, 0, 2)) . '/' . $base64_key . ".cache";
+        $file_name = md5($key);
+        $file = $this->config['path'] . "/" . strtolower(substr($file_name, 0, 2)) . '/' . $file_name . ".cache";
         if (File::exists($file)) {
             $fso = new File($file);
             $data = unserialize($fso->getContents());
@@ -96,8 +87,8 @@ class Pool extends PoolAbstract
         if (isset($this->saveDeferredItems[$key])) {
             unset($this->saveDeferredItems[$key]);
         }
-        $base64_key = Base64::encode($key);
-        $file = $this->config['path'] . "/" . strtolower(substr($base64_key, 0, 2)) . '/' . $base64_key . ".cache";
+        $file_name = md5($key);
+        $file = $this->config['path'] . "/" . strtolower(substr($file_name, 0, 2)) . '/' . $file_name . ".cache";
         if (!File::exists($file)) {
             return true;
         }
@@ -115,8 +106,8 @@ class Pool extends PoolAbstract
         /**
          * @var Item $item
          */
-        $base64_key = Base64::encode($item->getKey());
-        $file = $this->config['path'] . "/" . strtolower(substr($base64_key, 0, 2)) . '/' . $base64_key . ".cache";
+        $file_name = md5($item->getKey());
+        $file = $this->config['path'] . "/" . strtolower(substr($file_name, 0, 2)) . '/' . $file_name . ".cache";
         $data = [
             'value'   => $item->get(),
             'expires' => $item->getExpires()
@@ -128,8 +119,17 @@ class Pool extends PoolAbstract
     }
 
     /**
+     * GC，清除过期项。
+     */
+    public function gc()
+    {
+        $this->deleteExpiredItems();
+    }
+
+    /**
      * 删除过期项
      * @param string|null $path 指定缓存文件夹，null 表示默认设置
+     * @todo 存在性能问题，如果缓存文件夹下有很多文件，会导致程序阻塞。
      */
     protected function deleteExpiredItems(string $path = null)
     {

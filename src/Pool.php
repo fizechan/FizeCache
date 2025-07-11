@@ -7,7 +7,7 @@ use Psr\Cache\CacheItemInterface;
 /**
  * 缓存池
  *
- * 遵循 PSR6 规范，使用静态方法调用
+ * 遵循 PSR-6 规范，使用静态方法调用
  */
 class Pool
 {
@@ -15,7 +15,7 @@ class Pool
     /**
      * @var PoolInterface 处理器
      */
-    private static $handler;
+    private static $pool;
 
     /**
      * 常规调用请先初始化
@@ -24,7 +24,7 @@ class Pool
      */
     public function __construct(string $handler, array $config = [])
     {
-        self::$handler = PoolFactory::create($handler, $config);
+        self::$pool = PoolFactory::create($handler, $config);
     }
 
     /**
@@ -34,7 +34,7 @@ class Pool
      */
     public static function getItem(string $key): CacheItemInterface
     {
-        return self::$handler->getItem($key);
+        return self::$pool->getItem($key);
     }
 
     /**
@@ -44,7 +44,7 @@ class Pool
      */
     public static function getItems(array $keys = []): array
     {
-        return self::$handler->getItems($keys);
+        return self::$pool->getItems($keys);
     }
 
     /**
@@ -54,7 +54,7 @@ class Pool
      */
     public static function hasItem(string $key): bool
     {
-        return self::$handler->hasItem($key);
+        return self::$pool->hasItem($key);
     }
 
     /**
@@ -63,7 +63,7 @@ class Pool
      */
     public static function clear(): bool
     {
-        return self::$handler->clear();
+        return self::$pool->clear();
     }
 
     /**
@@ -73,7 +73,7 @@ class Pool
      */
     public static function deleteItem(string $key): bool
     {
-        return self::$handler->deleteItem($key);
+        return self::$pool->deleteItem($key);
     }
 
     /**
@@ -83,7 +83,7 @@ class Pool
      */
     public static function deleteItems(array $keys): bool
     {
-        return self::$handler->deleteItems($keys);
+        return self::$pool->deleteItems($keys);
     }
 
     /**
@@ -93,7 +93,7 @@ class Pool
      */
     public static function save(CacheItemInterface $item): bool
     {
-        return self::$handler->save($item);
+        return self::$pool->save($item);
     }
 
     /**
@@ -103,7 +103,7 @@ class Pool
      */
     public static function saveDeferred(CacheItemInterface $item): bool
     {
-        return self::$handler->saveDeferred($item);
+        return self::$pool->saveDeferred($item);
     }
 
     /**
@@ -112,7 +112,7 @@ class Pool
      */
     public static function commit(): bool
     {
-        return self::$handler->commit();
+        return self::$pool->commit();
     }
 
     /**
@@ -122,6 +122,14 @@ class Pool
      */
     public static function saveItems(array $items): bool
     {
-        return self::$handler->saveItems($items);
+        return self::$pool->saveItems($items);
+    }
+
+    /**
+     * GC。清除过期的缓存。
+     */
+    public static function gc()
+    {
+        self::$pool->gc();
     }
 }

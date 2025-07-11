@@ -8,7 +8,7 @@ use Psr\Cache\CacheItemPoolInterface;
 /**
  * 缓存池接口
  *
- * 在 PSR 基础上又定义了一些相关接口
+ * 在 PSR-6 基础上又定义了一些接口
  */
 interface PoolInterface extends CacheItemPoolInterface
 {
@@ -24,4 +24,9 @@ interface PoolInterface extends CacheItemPoolInterface
      * @return bool
      */
     public function saveItems(array $items): bool;
+
+    /**
+     * GC。清除过期的缓存。
+     */
+    public function gc();
 }

@@ -15,7 +15,7 @@ class PoolFactory
      */
     public static function create(string $handler, array $config = []): PoolInterface
     {
-        $class = '\\' . __NAMESPACE__ . '\\handler\\' . $handler . '\\Pool';
+        $class = '\\' . __NAMESPACE__ . '\\Handler\\' . $handler . '\\Pool';
         return new $class($config);
     }
 }

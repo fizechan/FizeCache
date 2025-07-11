@@ -15,7 +15,7 @@ class CacheFactory
      */
     public static function create(string $handler, array $config = []): CacheInterface
     {
-        $class = '\\' . __NAMESPACE__ . '\\handler\\' . $handler . '\\Cache';
+        $class = '\\' . __NAMESPACE__ . '\\Handler\\' . $handler . '\\Cache';
         return new $class($config);
     }
 }

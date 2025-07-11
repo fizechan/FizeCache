@@ -32,7 +32,7 @@ interface ItemInterface extends CacheItemInterface
      * @return int|null 返回 null 表示永不过期
      * @internal 外部不应直接调用该方法
      */
-    public function getExpires(): ?int;
+    public function getExpires();
 
     /**
      * 根据设置判断缓存是否有效

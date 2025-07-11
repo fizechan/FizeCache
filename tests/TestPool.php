@@ -13,17 +13,14 @@ class TestPool extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         $handler = 'File';
-        $config = [
-            'path' => __DIR__ . '/../temp',
-        ];
-        new Pool($handler, $config);
+        new Pool($handler);
     }
 
     public function test__construct()
     {
         $handler = 'File';
         $config = [
-            'path' => __DIR__ . '/../temp',
+            'path' => dirname(__DIR__) . '/data/cache',
         ];
         new Pool($handler, $config);
         self::assertTrue(true);
@@ -122,5 +119,11 @@ class TestPool extends TestCase
         $items = [$item3, $item4];
         $result = Pool::saveItems($items);
         self::assertTrue($result);
+    }
+
+    public function testGc()
+    {
+        Pool::gc();
+        self::assertTrue(true);
     }
 }
