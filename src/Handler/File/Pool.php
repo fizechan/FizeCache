@@ -2,6 +2,7 @@
 
 namespace Fize\Cache\Handler\File;
 
+use Exception;
 use Fize\Cache\CacheException;
 use Fize\Cache\Item;
 use Fize\Cache\PoolAbstract;
@@ -114,8 +115,13 @@ class Pool extends PoolAbstract
         ];
 
         $fso = new File($file, 'w');
-        $result = $fso->putContents(serialize($data));
-        return $result !== false;
+        try {
+            $fso->putContents(serialize($data));
+            $result = true;
+        } catch (Exception $exception) {
+            $result = false;
+        }
+        return $result;
     }
 
     /**
