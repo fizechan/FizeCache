@@ -26,7 +26,7 @@ class Pool extends PoolAbstract
     {
         parent::__construct($config);
         $default_config = [
-            'path'    => dirname(__DIR__, 3) . '/data',
+            'path'    => dirname(__DIR__, 3) . '/.data',
             'expires' => null,
         ];
         $this->config = array_merge($default_config, $config);

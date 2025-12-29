@@ -1,6 +1,6 @@
-/vendor/
+/.data/
 /.idea/
-/data/
+/vendor/
 /.phpunit.result.cache
 /composer.lock
-!/data/.gitkeep
+!/.data/.gitkeep
