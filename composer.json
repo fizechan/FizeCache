@@ -8,7 +8,6 @@
       "email": "chenfengzhan@qq.com"
     }
   ],
-  "version": "5.0.0",
   "autoload": {
     "psr-4": {
       "Fize\\Cache\\": "src"
