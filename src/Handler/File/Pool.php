@@ -137,7 +137,7 @@ class Pool extends PoolAbstract
      * @param string|null $path 指定缓存文件夹，null 表示默认设置
      * @todo 存在性能问题，如果缓存文件夹下有很多文件，会导致程序阻塞。
      */
-    protected function deleteExpiredItems(string $path = null)
+    protected function deleteExpiredItems(?string $path = null)
     {
         if (is_null($path)) {
             $path = $this->config['path'];
